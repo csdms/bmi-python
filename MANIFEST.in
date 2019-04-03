@@ -1,2 +1,4 @@
 include versioneer.py
 include bmi/_version.py
+
+recursive-include bmi bmi.py
