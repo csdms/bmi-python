@@ -1,0 +1,3 @@
+[submodule "bmi-spec"]
+	path = bmi-spec
+	url = https://github.com/csdms/bmi/
