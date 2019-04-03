@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import find_packages, setup
 
 import versioneer
 
@@ -11,5 +11,6 @@ setup(
     author_email="huttone@colorado.edu",
     url="http://csdms.colorado.edu",
     setup_requires=["setuptools"],
+    packages=find_packages(),
     cmdclass=versioneer.get_cmdclass(),
 )
