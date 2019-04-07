@@ -4,12 +4,22 @@ import versioneer
 
 
 setup(
-    name="bmi",
+    name="bmipy",
     version=versioneer.get_version(),
-    description="Basic Model Interface",
+    description="Basic Model Interface for Python",
     author="Eric Hutton",
     author_email="huttone@colorado.edu",
     url="http://csdms.colorado.edu",
+    classifiers=[
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Topic :: Scientific/Engineering :: Physics",
+    ],
     setup_requires=["setuptools"],
     packages=find_packages(),
     cmdclass=versioneer.get_cmdclass(),
