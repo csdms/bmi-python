@@ -21,6 +21,7 @@ setup(
         "Topic :: Scientific/Engineering :: Physics",
     ],
     setup_requires=["setuptools"],
+    install_requires=["numpy"],
     packages=find_packages(),
     cmdclass=versioneer.get_cmdclass(),
 )
