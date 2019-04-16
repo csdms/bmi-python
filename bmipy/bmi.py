@@ -226,7 +226,7 @@ class Bmi(ABC):
         -----
         CSDMS uses the `ugrid conventions`_ to define unstructured grids.
 
-        .. _UGRID: http://ugrid-conventions.github.io/ugrid-conventions
+        .. _ugrid conventions: http://ugrid-conventions.github.io/ugrid-conventions
         """
         ...
 
