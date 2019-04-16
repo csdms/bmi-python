@@ -1,1 +1,0 @@
-../bmi-spec/bmi.py
