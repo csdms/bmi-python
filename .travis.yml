@@ -20,7 +20,7 @@ jobs:
   - stage: docs
     os: linux
     script:
-    - conda env create -n test_env --file docs/environment.yml
+    - conda env create -n test_env --file docs/source/environment.yml
     - sphinx-apidoc --force -o docs bmipy *tests
     - make -C docs clean html
   - stage: deploy
