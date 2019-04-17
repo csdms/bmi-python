@@ -15,12 +15,10 @@ jobs:
   include:
   - stage: lint
     os: linux
-    if: env(CONDA_ENV) = "3.7"
     script:
     - make lint
   - stage: docs
     os: linux
-    if: env(CONDA_ENV) = "3.7"
     script:
     - conda env create -n test_env --file docs/environment.yml
     - sphinx-apidoc --force -o docs bmipy *tests
