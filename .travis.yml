@@ -1,0 +1,62 @@
+language: generic
+os:
+- linux
+- osx
+env:
+  matrix:
+  - CONDA_ENV=3.6
+  - CONDA_ENV=3.7
+matrix:
+  exclude:
+  - os: osx
+    env: CONDA_ENV=lint
+sudo: false
+jobs:
+  include:
+  - stage: lint
+    os: linux
+    if: env(CONDA_ENV) = "3.7"
+    script:
+    - make lint
+  - stage: docs
+    os: linux
+    if: env(CONDA_ENV) = "3.7"
+    script:
+    - conda env create -n test_env --file docs/environment.yml
+    - sphinx-apidoc --force -o docs bmipy *tests
+    - make -C docs clean html
+  - stage: deploy
+    if: tag =~ v.*$
+    script: skip
+    os: linux
+    deploy:
+      on:
+        all_branches: true
+      provider: pypi
+      user: mcflugen
+      password: 
+        secure: EsExpqv8hT9MqAT6eQ8944ePQrpjQGis9cDZsqROLYWp6MMwAcBuNGsp3leki6Gk8VFlA3wqlK+wNPMfWffFyU+1684vpobNnU6+fxP/LM/DzsMtDSatTfy6KS692an26AvppOHlkONL1kkv9GrzrpvUGwpdboTb1fW7x4zxhYFjWG2HQlBJ72+Ljuiy1NfjUQo4uIbvzTIAw7Sm2sNtopGPKuLShtY1QjIGOVBx1cVEgNdpgY0ZyQ/xXSbjmoSisU8/dWENAzcpRhg/9mJzNlwUMHDJi0lZw+zdnv1e7s8Q+umALL1ekuXrT0ptJYkoonpewe+jusAdeL7kwWuVm3MetY9P8xAZyNTcOUeC0FHqiO4O+nUKOlTMBeTlJjY0M/bp+UkN/y56DDUdZC4xtwf6UrttSqxgtiI0Y4eTK7SzyMfnLrZcYWUQ6mc0ZMLjnnXthJQjVTzG02HIzDNPTYqcIztVZyZi9ySkZ9luQa3XF8+pd3HuAZK6mLrjsGMQA/8iQewMT1WpnoStLMOSRMTKEMy+xLvqP6eNkaphpst8m5fUuSWpUknHlP8xA8XWR8sT7nLexzZFzR2dygQx8/3M+kVyJuHE1jaUaOD7OCho1lVDsuOafXyQLYRAlQt2b/8B/1hNtw4xZMXFDr0LMQ31cwr7BaK51uQbKb4pzK0=
+before_install:
+- |
+  if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+    brew remove --force $(brew list)
+    brew cleanup -s
+    rm -rf $(brew --cache)
+  fi
+install:
+- |
+  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh > $HOME/miniconda.sh
+  else
+    curl https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh > $HOME/miniconda.sh
+  fi
+- bash $HOME/miniconda.sh -b -p $HOME/anaconda
+- export PATH="$HOME/anaconda/bin:$PATH"
+- hash -r
+- conda config --set always_yes yes --set changeps1 no
+- conda create -n test_env python=$CONDA_ENV
+- source activate test_env
+- pip install .
+script:
+- pytest --cov=bmipy --cov-report=xml:$(pwd)/coverage.xml -vvv
+after_success: coveralls
