@@ -34,8 +34,8 @@ jobs:
         all_branches: true
       provider: pypi
       user: mcflugen
-      password: 
-        secure: EsExpqv8hT9MqAT6eQ8944ePQrpjQGis9cDZsqROLYWp6MMwAcBuNGsp3leki6Gk8VFlA3wqlK+wNPMfWffFyU+1684vpobNnU6+fxP/LM/DzsMtDSatTfy6KS692an26AvppOHlkONL1kkv9GrzrpvUGwpdboTb1fW7x4zxhYFjWG2HQlBJ72+Ljuiy1NfjUQo4uIbvzTIAw7Sm2sNtopGPKuLShtY1QjIGOVBx1cVEgNdpgY0ZyQ/xXSbjmoSisU8/dWENAzcpRhg/9mJzNlwUMHDJi0lZw+zdnv1e7s8Q+umALL1ekuXrT0ptJYkoonpewe+jusAdeL7kwWuVm3MetY9P8xAZyNTcOUeC0FHqiO4O+nUKOlTMBeTlJjY0M/bp+UkN/y56DDUdZC4xtwf6UrttSqxgtiI0Y4eTK7SzyMfnLrZcYWUQ6mc0ZMLjnnXthJQjVTzG02HIzDNPTYqcIztVZyZi9ySkZ9luQa3XF8+pd3HuAZK6mLrjsGMQA/8iQewMT1WpnoStLMOSRMTKEMy+xLvqP6eNkaphpst8m5fUuSWpUknHlP8xA8XWR8sT7nLexzZFzR2dygQx8/3M+kVyJuHE1jaUaOD7OCho1lVDsuOafXyQLYRAlQt2b/8B/1hNtw4xZMXFDr0LMQ31cwr7BaK51uQbKb4pzK0=
+      password:
+        secure: d0lVWG54WokY88HQJRll0hshZ9apboEHdrjjs9mZKbCu6qVADp4r6xkboUuS9W4nSAVDfKZ4Q7cPdkplfGunjuhPq4McztF7jWqc1zPwVvKfJiHhGK90vqwUJwLC/zyPn2QR3HYCTmainZeGGMcsGNh5IvO5CcZg9IGR3M/EsPm6WTTu+/e1JG6fixO+cUmYsQbQ/Z2/+NSHUiFkiT8oAlLJZqZDHvvURU4jQCBeISnqRzOqR76Sy00W1gniUYXeyr8DUAZy+SHPgxIQ8tUAkB/Qg6mwNVQ2P+VEkm1feuTNUbrUYyi34XZhcjvP6AQfU1sKIsdMQvCtBTfSO1ALNy+5izKUhi1egmoarqcV/HkMho/okSWDDCkrTiYMb1904rYaTH/x6ixcefFT4X1GBLthsF+ZRBvzCQSKxKPWt/Sqn8P9CyAOIVDSJIut/nII/LfkC50fKdIz4DMIb9vtGgyknHlRxj1a2pmAwTlBF7OXV/BKaEafxapaUmAnj/V+OdFsiHn9iA4xLaQ/YgYWjI6fveiWMD+Pl7KPUDt5eK7WtiI1bfsuyuKMlyTwyunkfqJ5Y24R6DTKBksYqNpuYmzAewHTbNcJkesN/ZPvDp1zSgmYQr/IlObTvxt57ebunxn+1rByN/gO48QeUMOr9LWPSaYdHcjQSN5ZHBMKpqI=
 before_install:
 - |
   if [[ $TRAVIS_OS_NAME == "osx" ]]; then
