@@ -4,6 +4,7 @@ channels:
 dependencies:
 - python==3.6
 - pandoc
+- pip
 - sphinx>=1.5.1
 - sphinx_rtd_theme
 - tornado
