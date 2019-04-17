@@ -56,7 +56,7 @@ install:
 - conda config --set always_yes yes --set changeps1 no
 - conda create -n test_env python=$CONDA_ENV
 - source activate test_env
-- pip install .
+- pip install . -r requirements.txt
 script:
 - pytest --cov=bmipy --cov-report=xml:$(pwd)/coverage.xml -vvv
 after_success: coveralls
