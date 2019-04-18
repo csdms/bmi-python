@@ -51,12 +51,11 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint: ## check style with flake8
-	flake8 bmi tests
+	flake8 bmipy tests
 
 pretty: ## reformat files to make them look pretty
-	find bmi -name '*.py' | xargs isort
-	find tests -name '*.py' | xargs isort
-	black setup.py bmi tests
+	find bmipy -name '*.py' | xargs isort
+	black setup.py bmipy
 
 test: ## run tests quickly with the default Python
 	py.test
@@ -65,16 +64,16 @@ test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	pytest --cov=bmi --cov-report= --cov-report=html --cov-config=setup.cfg
+	pytest --cov=bmipy --cov-report= --cov-report=html --cov-config=setup.cfg
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/api/bmi.rst
-	rm -f docs/api/modules.rst
-	sphinx-apidoc --force -o docs/api bmi *tests
+	rm -f docs/source/bmipy.rst
+	rm -f docs/source/modules.rst
+	sphinx-apidoc --force -o docs/source bmipy *tests
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
-	$(BROWSER) docs/_build/html/index.html
+	$(BROWSER) docs/build/html/index.html
 
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .

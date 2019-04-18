@@ -1,2 +1,2 @@
 include versioneer.py
-include bmi/_version.py
+include bmipy/_version.py
