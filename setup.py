@@ -7,6 +7,7 @@ setup(
     name="bmipy",
     version=versioneer.get_version(),
     description="Basic Model Interface for Python",
+    long_description=open("README.rst").read(),
     author="Eric Hutton",
     author_email="huttone@colorado.edu",
     url="http://csdms.colorado.edu",
