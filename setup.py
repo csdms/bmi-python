@@ -25,4 +25,5 @@ setup(
     install_requires=["numpy"],
     packages=find_packages(),
     cmdclass=versioneer.get_cmdclass(),
+    entry_points={"console_scripts": ["bmipy-render=bmipy.cmd:render_bmi"]},
 )
