@@ -6,9 +6,7 @@ import jinja2
 
 from bmipy import Bmi
 
-
-BMI_TEMPLATE = """#! /usr/bin/env python
-# -*- coding: utf-8 -*-
+BMI_TEMPLATE = """# -*- coding: utf-8 -*-
 
 from bmipy import Bmi
 import numpy

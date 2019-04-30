@@ -22,7 +22,7 @@ setup(
         "Topic :: Scientific/Engineering :: Physics",
     ],
     setup_requires=["setuptools"],
-    install_requires=["numpy"],
+    install_requires=["black", "click", "jinja2", "numpy"],
     packages=find_packages(),
     cmdclass=versioneer.get_cmdclass(),
     entry_points={"console_scripts": ["bmipy-render=bmipy.cmd:render_bmi"]},
