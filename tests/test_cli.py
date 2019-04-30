@@ -1,4 +1,5 @@
 from click.testing import CliRunner
+import pytest
 
 from bmipy.cmd import main
 
@@ -33,9 +34,6 @@ def test_cli_default(tmpdir):
 
 
 def test_cli_with_hints(tmpdir):
-    import importlib
-    import sys
-
     runner = CliRunner()
     with tmpdir.as_cwd():
         result = runner.invoke(main, ["MyBmiWithHints", "--hints"])
@@ -44,9 +42,6 @@ def test_cli_with_hints(tmpdir):
 
 
 def test_cli_without_hints(tmpdir):
-    import importlib
-    import sys
-
     runner = CliRunner()
     with tmpdir.as_cwd():
         result = runner.invoke(main, ["MyBmiWithoutHints", "--no-hints"])
@@ -55,9 +50,6 @@ def test_cli_without_hints(tmpdir):
 
 
 def test_cli_with_black(tmpdir):
-    import importlib
-    import sys
-
     runner = CliRunner()
     with tmpdir.as_cwd():
         result = runner.invoke(main, ["MyBmiWithHints", "--black"])
@@ -65,12 +57,16 @@ def test_cli_with_black(tmpdir):
         assert max([len(line) for line in result.output.splitlines()]) <= 88
 
 
-def test_cli_without_hints(tmpdir):
-    import importlib
-    import sys
-
+def test_cli_without_black(tmpdir):
     runner = CliRunner()
     with tmpdir.as_cwd():
         result = runner.invoke(main, ["MyBmiWithoutHints", "--no-black"])
         assert result.exit_code == 0
         assert max([len(line) for line in result.output.splitlines()]) > 88
+
+
+@pytest.mark.parametrize("bad_name", ["True", "0Bmi"])
+def test_cli_with_bad_class_name(tmpdir, bad_name):
+    runner = CliRunner()
+    result = runner.invoke(main, [bad_name])
+    assert result.exit_code == 1

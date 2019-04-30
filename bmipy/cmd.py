@@ -94,6 +94,8 @@ def main(ctx, name, black, hints):
         print(render_bmi(name, black=black, hints=hints))
     else:
         click.secho(
-            "💥 💔 💥 '{0}' is not a valid class name in Python".format(name), err=True, fg="red"
+            "💥 💔 💥 '{0}' is not a valid class name in Python".format(name),
+            err=True,
+            fg="red",
         )
         ctx.exit(code=1)
