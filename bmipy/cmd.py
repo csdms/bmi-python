@@ -32,8 +32,8 @@ def render_bmi(name, black):
     template = env.from_string(BMI_TEMPLATE)
 
     funcs = {}
-    for name, func in inspect.getmembers(Bmi, inspect.isfunction):
-        funcs[name] = {"sig": inspect.signature(func), "doc": func.__doc__}
+    for func_name, func in inspect.getmembers(Bmi, inspect.isfunction):
+        funcs[func_name] = {"sig": inspect.signature(func), "doc": func.__doc__}
 
     contents = template.render(name=name, funcs=funcs)
     if black:
