@@ -7,6 +7,7 @@ import jinja2
 from bmipy import Bmi
 
 BMI_TEMPLATE = """# -*- coding: utf-8 -*-
+from typing import Tuple
 
 from bmipy import Bmi
 import numpy
@@ -36,6 +37,7 @@ def render_bmi(name, black):
         funcs[func_name] = {"sig": inspect.signature(func), "doc": func.__doc__}
 
     contents = template.render(name=name, funcs=funcs)
+
     if black:
         contents = blk.format_file_contents(contents, fast=True, mode=blk.FileMode())
 
