@@ -7,6 +7,7 @@ setup(
     name="bmipy",
     version=versioneer.get_version(),
     description="Basic Model Interface for Python",
+    long_description=open("README.rst").read(),
     author="Eric Hutton",
     author_email="huttone@colorado.edu",
     url="http://csdms.colorado.edu",
@@ -21,7 +22,8 @@ setup(
         "Topic :: Scientific/Engineering :: Physics",
     ],
     setup_requires=["setuptools"],
-    install_requires=["numpy"],
+    install_requires=["black", "click", "jinja2", "numpy"],
     packages=find_packages(),
     cmdclass=versioneer.get_cmdclass(),
+    entry_points={"console_scripts": ["bmipy-render=bmipy.cmd:main"]},
 )
