@@ -1,5 +1,6 @@
 from click.testing import CliRunner
 import pytest
+import six
 
 from bmipy.cmd import main
 
@@ -33,6 +34,7 @@ def test_cli_default(tmpdir):
         assert "MyBmi" in mod.__dict__
 
 
+@pytest.mark.skipif(six.PY2, reason="requires python 3")
 def test_cli_with_hints(tmpdir):
     runner = CliRunner()
     with tmpdir.as_cwd():
@@ -41,6 +43,7 @@ def test_cli_with_hints(tmpdir):
         assert "->" in result.output
 
 
+@pytest.mark.skipif(six.PY2, reason="requires python 3")
 def test_cli_without_hints(tmpdir):
     runner = CliRunner()
     with tmpdir.as_cwd():
@@ -49,6 +52,7 @@ def test_cli_without_hints(tmpdir):
         assert "->" not in result.output
 
 
+@pytest.mark.skipif(six.PY2, reason="requires python 3")
 def test_cli_with_black(tmpdir):
     runner = CliRunner()
     with tmpdir.as_cwd():
@@ -57,6 +61,7 @@ def test_cli_with_black(tmpdir):
         assert max([len(line) for line in result.output.splitlines()]) <= 88
 
 
+@pytest.mark.skipif(six.PY2, reason="requires python 3")
 def test_cli_without_black(tmpdir):
     runner = CliRunner()
     with tmpdir.as_cwd():
@@ -65,7 +70,7 @@ def test_cli_without_black(tmpdir):
         assert max([len(line) for line in result.output.splitlines()]) > 88
 
 
-@pytest.mark.parametrize("bad_name", ["True", "0Bmi"])
+@pytest.mark.parametrize("bad_name", ["break", "0Bmi"])
 def test_cli_with_bad_class_name(tmpdir, bad_name):
     runner = CliRunner()
     result = runner.invoke(main, [bad_name])
