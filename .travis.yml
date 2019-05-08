@@ -6,6 +6,7 @@ env:
   matrix:
   - CONDA_ENV=3.7
   - CONDA_ENV=3.6
+  - CONDA_ENV=2.7
 sudo: false
 jobs:
   include:
@@ -52,6 +53,7 @@ before_install:
 - conda create -n test_env python=$CONDA_ENV
 - source activate test_env
 install:
+- pip install six
 - pip install . -r requirements.txt
 script:
 - pytest --cov=bmipy --cov-report=xml:$(pwd)/coverage.xml -vvv
