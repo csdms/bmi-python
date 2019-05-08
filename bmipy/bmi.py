@@ -1,5 +1,9 @@
 from abc import ABCMeta, abstractmethod
+from typing import Tuple
+
 import six
+import numpy as np
+
 
 @six.add_metaclass(ABCMeta)
 class Bmi(object):

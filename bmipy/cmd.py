@@ -106,8 +106,16 @@ def render_bmi(name, black=True, hints=True):
 
 @click.command()
 @click.version_option()
-@click.option("--black / --no-black", default=True, help="format output with black (requires Python 3)")
-@click.option("--hints / --no-hints", default=True, help="include type hint annotation (currently disabled)")
+@click.option(
+    "--black / --no-black",
+    default=True,
+    help="format output with black (requires Python 3)",
+)
+@click.option(
+    "--hints / --no-hints",
+    default=True,
+    help="include type hint annotation (currently disabled)",
+)
 @click.argument("name")
 @click.pass_context
 def main(ctx, name, black, hints):
