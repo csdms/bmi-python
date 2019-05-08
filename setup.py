@@ -1,10 +1,10 @@
 from setuptools import find_packages, setup
-import six
+from sys import version_info
 
 import versioneer
 
 
-classifiers=[
+classifiers = [
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
@@ -14,9 +14,9 @@ classifiers=[
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Scientific/Engineering :: Physics",
 ]
-install_requires=["black", "click", "jinja2", "numpy"]
+install_requires=["black", "click", "jinja2", "numpy", "six"]
 
-if six.PY2:
+if version_info.major == 2:
     classifiers.extend(
         [
             "Programming Language :: Python :: 2",
@@ -34,8 +34,8 @@ setup(
     author="Eric Hutton",
     author_email="huttone@colorado.edu",
     url="http://csdms.colorado.edu",
-    classifiers=classifiers,
     setup_requires=["setuptools"],
+    classifiers=classifiers,
     install_requires=install_requires,
     packages=find_packages(),
     cmdclass=versioneer.get_cmdclass(),
