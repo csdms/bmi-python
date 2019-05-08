@@ -1,12 +1,10 @@
 from abc import ABC, abstractmethod
-from typing import Tuple
-
-import numpy as np
 
 
 class Bmi(ABC):
     @abstractmethod
-    def initialize(self, config_file: str) -> None:
+    def initialize(self, config_file):
+        # type: (str) -> None
         """Perform startup tasks for the model.
 
         Perform all tasks that take place before entering the model's time
@@ -30,7 +28,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def update(self) -> None:
+    def update(self):
+        # type: () -> None
         """Advance model state by one time step.
 
         Perform all tasks that take place within one pass through the model's
@@ -42,7 +41,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def finalize(self) -> None:
+    def finalize(self):
+        # type: () -> None
         """Perform tear-down tasks for the model.
 
         Perform all tasks that take place after exiting the model's time
@@ -52,7 +52,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_component_name(self) -> str:
+    def get_component_name(self):
+        # type: () -> str
         """Name of the component.
 
         Returns
@@ -63,7 +64,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_input_var_names(self) -> Tuple[str]:
+    def get_input_var_names(self):
+        # type: () -> Tuple[str]
         """List of a model's input variables.
 
         Input variable names must be CSDMS Standard Names, also known
@@ -86,7 +88,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_output_var_names(self) -> Tuple[str]:
+    def get_output_var_names(self):
+        # type: () -> Tuple[str]
         """List of a model's output variables.
 
         Output variable names must be CSDMS Standard Names, also known
@@ -100,7 +103,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_var_grid(self, name: str) -> int:
+    def get_var_grid(self, name):
+        # type: (str) -> int
         """Get grid identifier for the given variable.
 
         Parameters
@@ -116,7 +120,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_var_type(self, name: str) -> str:
+    def get_var_type(self, name):
+        # type: (str) -> str
         """Get data type of the given variable.
 
         Parameters
@@ -132,7 +137,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_var_units(self, name: str) -> str:
+    def get_var_units(self, name: str):
+        # type: (str) -> str
         """Get units of the given variable.
 
         Standard unit names, in lower case, should be used, such as
@@ -162,7 +168,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_var_itemsize(self, name: str) -> int:
+    def get_var_itemsize(self, name):
+        # type: (str) -> int
         """Get memory use for each array element in bytes.
 
         Parameters
@@ -178,7 +185,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_var_nbytes(self, name: str) -> int:
+    def get_var_nbytes(self, name):
+        # type: (str) -> int
         """Get size, in bytes, of the given variable.
 
         Parameters
@@ -194,7 +202,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_var_location(self, name: str) -> str:
+    def get_var_location(self, name):
+        # type: (str) -> str
         """Get the grid element type that the a given variable is defined on.
 
         The grid topology can be composed of *nodes*, *edges*, and *faces*.
@@ -231,7 +240,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_current_time(self) -> float:
+    def get_current_time(self):
+        # type: () -> float
         """Current time of the model.
 
         Returns
@@ -242,7 +252,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_start_time(self) -> float:
+    def get_start_time(self):
+        # type: () -> float
         """Start time of the model.
 
         Model times should be of type float.
@@ -255,7 +266,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_end_time(self) -> float:
+    def get_end_time(self):
+        # type: () -> float
         """End time of the model.
 
         Returns
@@ -266,7 +278,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_time_units(self) -> str:
+    def get_time_units(self):
+        # type: () -> str
         """Time units of the model.
 
         Returns
@@ -281,7 +294,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_time_step(self) -> float:
+    def get_time_step(self):
+        # type: () -> float
         """Current time step of the model.
 
         The model time step should be of type float.
@@ -294,7 +308,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_value(self, name: str, dest: np.ndarray) -> np.ndarray:
+    def get_value(self, name, dest):
+        # type: (str, np.ndarray) -> np.ndarray
         """Get a copy of values of the given variable.
 
         This is a getter for the model, used to access the model's
@@ -316,7 +331,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_value_ptr(self, name: str) -> np.ndarray:
+    def get_value_ptr(self, name):
+        # type: (str) -> np.ndarray
         """Get a reference to values of the given variable.
 
         This is a getter for the model, used to access the model's
@@ -336,9 +352,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_value_at_indices(
-        self, name: str, dest: np.ndarray, inds: np.ndarray
-    ) -> np.ndarray:
+    def get_value_at_indices(self, name, dest, inds):
+        # type: (str, np.ndarray, np.ndarray) -> np.ndarray
         """Get values at particular indices.
 
         Parameters
@@ -358,7 +373,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def set_value(self, name: str, values: np.ndarray) -> None:
+    def set_value(self, name, values):
+        # type: (str, np.ndarray) -> None
         """Specify a new value for a model variable.
 
         This is the setter for the model, used to change the model's
@@ -376,9 +392,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def set_value_at_indices(
-        self, name: str, inds: np.ndarray, src: np.ndarray
-    ) -> None:
+    def set_value_at_indices(self, name, inds, src):
+        # type: (str, np.ndarray, np.ndarray) -> None
         """Specify a new value for a model variable at particular indices.
 
         Parameters
@@ -394,7 +409,8 @@ class Bmi(ABC):
 
     # Grid information
     @abstractmethod
-    def get_grid_rank(self, grid: int) -> int:
+    def get_grid_rank(self, grid):
+        # type: (int) -> int
         """Get number of dimensions of the computational grid.
 
         Parameters
@@ -410,7 +426,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_size(self, grid: int) -> int:
+    def get_grid_size(self, grid):
+        # type: (int) -> int
         """Get the total number of elements in the computational grid.
 
         Parameters
@@ -426,7 +443,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_type(self, grid: int) -> str:
+    def get_grid_type(self, grid):
+        # type: (int) -> str
         """Get the grid type as a string.
 
         Parameters
@@ -443,7 +461,8 @@ class Bmi(ABC):
 
     # Uniform rectilinear
     @abstractmethod
-    def get_grid_shape(self, grid: int, shape: np.ndarray) -> np.ndarray:
+    def get_grid_shape(self, grid, shape):
+        # type: (int, np.ndarray) -> np.ndarray
         """Get dimensions of the computational grid.
 
         Parameters
@@ -461,7 +480,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_spacing(self, grid: int, spacing: np.ndarray) -> np.ndarray:
+    def get_grid_spacing(self, grid, spacing):
+        # type: (int, np.ndarray) -> np.ndarray
         """Get distance between nodes of the computational grid.
 
         Parameters
@@ -479,7 +499,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_origin(self, grid: int, origin: np.ndarray) -> np.ndarray:
+    def get_grid_origin(self, grid, origin):
+        # type: (int, np.ndarray) -> np.ndarray
         """Get coordinates for the lower-left corner of the computational grid.
 
         Parameters
@@ -500,7 +521,8 @@ class Bmi(ABC):
 
     # Non-uniform rectilinear, curvilinear
     @abstractmethod
-    def get_grid_x(self, grid: int, x: np.ndarray) -> np.ndarray:
+    def get_grid_x(self, grid, x) -> np.ndarray:
+        # type: (int, np.ndarray) -> np.ndarray
         """Get coordinates of grid nodes in the x direction.
 
         Parameters
@@ -518,7 +540,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_y(self, grid: int, y: np.ndarray) -> np.ndarray:
+    def get_grid_y(self, grid, y):
+        # type: (int, np.ndarray) -> np.ndarray
         """Get coordinates of grid nodes in the y direction.
 
         Parameters
@@ -536,7 +559,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_z(self, grid: int, z: np.ndarray) -> np.ndarray:
+    def get_grid_z(self, grid, z):
+        # type: (int, np.ndarray) -> np.ndarray
         """Get coordinates of grid nodes in the z direction.
 
         Parameters
@@ -554,7 +578,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_node_count(self, grid: int) -> int:
+    def get_grid_node_count(self, grid):
+        # type: (int) -> int
         """Get the number of nodes in the grid.
 
         Parameters
@@ -570,7 +595,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_edge_count(self, grid: int) -> int:
+    def get_grid_edge_count(self, grid):
+        # type: (int) -> int
         """Get the number of edges in the grid.
 
         Parameters
@@ -586,7 +612,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_face_count(self, grid: int) -> int:
+    def get_grid_face_count(self, grid):
+        # type: (int) -> int
         """Get the number of faces in the grid.
 
         Parameters
@@ -602,7 +629,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_edge_nodes(self, grid: int, edge_nodes: np.ndarray) -> np.ndarray:
+    def get_grid_edge_nodes(self, grid, edge_nodes):
+        # type: (int, np.ndarray) -> np.ndarray
         """Get the edge-node connectivity.
 
         Parameters
@@ -622,7 +650,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_face_nodes(self, grid: int, face_nodes: np.ndarray) -> np.ndarray:
+    def get_grid_face_nodes(self, grid, face_nodes):
+        # type: (int, np.ndarray) -> np.ndarray
         """Get the face-node connectivity.
 
         Parameters
@@ -642,9 +671,8 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_nodes_per_face(
-        self, grid: int, nodes_per_face: np.ndarray
-    ) -> np.ndarray:
+    def get_grid_nodes_per_face(self, grid, nodes_per_face):
+        # type: (int, np.ndarray) -> np.ndarray
         """Get the number of nodes for each face.
 
         Parameters
