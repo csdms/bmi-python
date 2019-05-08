@@ -25,7 +25,7 @@ class Bmi(ABC):
         recommended. A template of a model's configuration file
         with placeholder values is used by the BMI.
         """
-        ...
+        pass
 
     @abstractmethod
     def update(self):
@@ -38,7 +38,7 @@ class Bmi(ABC):
         then they can be computed by the :func:`initialize` method and this
         method can return with no action.
         """
-        ...
+        pass
 
     @abstractmethod
     def finalize(self):
@@ -49,7 +49,7 @@ class Bmi(ABC):
         loop. This typically includes deallocating memory, closing files and
         printing reports.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_component_name(self):
@@ -61,7 +61,7 @@ class Bmi(ABC):
         str
             The name of the component.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_input_var_names(self):
@@ -85,7 +85,7 @@ class Bmi(ABC):
 
         Standard Names do not have to be used within the model.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_output_var_names(self):
@@ -100,7 +100,7 @@ class Bmi(ABC):
         list of str
             The output variables for the model.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_var_grid(self, name):
@@ -117,7 +117,7 @@ class Bmi(ABC):
         int
           The grid identifier.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_var_type(self, name):
@@ -134,10 +134,10 @@ class Bmi(ABC):
         str
             The Python variable type; e.g., ``str``, ``int``, ``float``.
         """
-        ...
+        pass
 
     @abstractmethod
-    def get_var_units(self, name: str):
+    def get_var_units(self, name):
         # type: (str) -> str
         """Get units of the given variable.
 
@@ -165,7 +165,7 @@ class Bmi(ABC):
 
         .. _UDUNITS: http://www.unidata.ucar.edu/software/udunits
         """
-        ...
+        pass
 
     @abstractmethod
     def get_var_itemsize(self, name):
@@ -182,7 +182,7 @@ class Bmi(ABC):
         int
             Item size in bytes.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_var_nbytes(self, name):
@@ -199,7 +199,7 @@ class Bmi(ABC):
         int
             The size of the variable, counted in bytes.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_var_location(self, name):
@@ -217,8 +217,8 @@ class Bmi(ABC):
 
         *face*
             A plane or surface enclosed by a set of edges. In a 2D
-            horizontal application one may consider the word “polygon”,
-            but in the hierarchy of elements the word “face” is most common.
+            horizontal application one may consider the word "polygon",
+            but in the hierarchy of elements the word "face" is most common.
 
         Parameters
         ----------
@@ -237,7 +237,7 @@ class Bmi(ABC):
 
         .. _ugrid conventions: http://ugrid-conventions.github.io/ugrid-conventions
         """
-        ...
+        pass
 
     @abstractmethod
     def get_current_time(self):
@@ -249,7 +249,7 @@ class Bmi(ABC):
         float
             The current model time.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_start_time(self):
@@ -263,7 +263,7 @@ class Bmi(ABC):
         float
             The model start time.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_end_time(self):
@@ -275,7 +275,7 @@ class Bmi(ABC):
         float
             The maximum model time.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_time_units(self):
@@ -291,7 +291,7 @@ class Bmi(ABC):
         -----
         CSDMS uses the UDUNITS standard from Unidata.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_time_step(self):
@@ -305,7 +305,7 @@ class Bmi(ABC):
         float
             The time step used in model.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_value(self, name, dest):
@@ -328,7 +328,7 @@ class Bmi(ABC):
         ndarray
             The same numpy array that was passed as an input buffer.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_value_ptr(self, name):
@@ -349,7 +349,7 @@ class Bmi(ABC):
         array_like
             A reference to a model variable.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_value_at_indices(self, name, dest, inds):
@@ -370,7 +370,7 @@ class Bmi(ABC):
         array_like
             Value of the model variable at the given location.
         """
-        ...
+        pass
 
     @abstractmethod
     def set_value(self, name, values):
@@ -389,7 +389,7 @@ class Bmi(ABC):
         src : array_like
             The new value for the specified variable.
         """
-        ...
+        pass
 
     @abstractmethod
     def set_value_at_indices(self, name, inds, src):
@@ -405,7 +405,7 @@ class Bmi(ABC):
         src : array_like
             The new value for the specified variable.
         """
-        ...
+        pass
 
     # Grid information
     @abstractmethod
@@ -423,7 +423,7 @@ class Bmi(ABC):
         int
             Rank of the grid.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_size(self, grid):
@@ -440,7 +440,7 @@ class Bmi(ABC):
         int
             Size of the grid.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_type(self, grid):
@@ -457,7 +457,7 @@ class Bmi(ABC):
         str
             Type of grid as a string.
         """
-        ...
+        pass
 
     # Uniform rectilinear
     @abstractmethod
@@ -477,7 +477,7 @@ class Bmi(ABC):
         ndarray of int
             The input numpy array that holds the grid's shape.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_spacing(self, grid, spacing):
@@ -496,7 +496,7 @@ class Bmi(ABC):
         ndarray of float
             The input numpy array that holds the grid's spacing.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_origin(self, grid, origin):
@@ -517,11 +517,11 @@ class Bmi(ABC):
             The input numpy array that holds the coordinates of the grid's
             lower-left corner.
         """
-        ...
+        pass
 
     # Non-uniform rectilinear, curvilinear
     @abstractmethod
-    def get_grid_x(self, grid, x) -> np.ndarray:
+    def get_grid_x(self, grid, x):
         # type: (int, np.ndarray) -> np.ndarray
         """Get coordinates of grid nodes in the x direction.
 
@@ -537,7 +537,7 @@ class Bmi(ABC):
         ndarray of float
             The input numpy array that holds the grid's column x-coordinates.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_y(self, grid, y):
@@ -556,7 +556,7 @@ class Bmi(ABC):
         ndarray of float
             The input numpy array that holds the grid's row y-coordinates.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_z(self, grid, z):
@@ -575,7 +575,7 @@ class Bmi(ABC):
         ndarray of float
             The input numpy array that holds the grid's layer z-coordinates.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_node_count(self, grid):
@@ -592,7 +592,7 @@ class Bmi(ABC):
         int
             The total number of grid nodes.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_edge_count(self, grid):
@@ -609,7 +609,7 @@ class Bmi(ABC):
         int
             The total number of grid edges.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_face_count(self, grid):
@@ -626,7 +626,7 @@ class Bmi(ABC):
         int
             The total number of grid faces.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_edge_nodes(self, grid, edge_nodes):
@@ -647,7 +647,7 @@ class Bmi(ABC):
         ndarray of int
             The input numpy array that holds the edge-node connectivity.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_face_nodes(self, grid, face_nodes):
@@ -668,7 +668,7 @@ class Bmi(ABC):
         ndarray of int
             The input numpy array that holds the face-node connectivity.
         """
-        ...
+        pass
 
     @abstractmethod
     def get_grid_nodes_per_face(self, grid, nodes_per_face):
@@ -687,4 +687,4 @@ class Bmi(ABC):
         ndarray of int
             The input numpy array that holds the number of nodes per edge.
         """
-        ...
+        pass
