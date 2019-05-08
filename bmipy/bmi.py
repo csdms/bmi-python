@@ -1,7 +1,8 @@
-from abc import ABC, abstractmethod
+from abc import ABCMeta, abstractmethod
+import six
 
-
-class Bmi(ABC):
+@six.add_metaclass(ABCMeta)
+class Bmi(object):
     @abstractmethod
     def initialize(self, config_file):
         # type: (str) -> None
