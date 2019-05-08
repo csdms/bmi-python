@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 import inspect
 import keyword
 import re
 
-import black as blk
+import six
+
 import click
 import jinja2
 
@@ -41,6 +43,25 @@ def _is_valid_class_name(name):
     return p.match(name) and not keyword.iskeyword(name)
 
 
+def _get_bmi_methods(cls):
+    if six.PY2:
+        return inspect.getmembers(cls, inspect.ismethod)
+    else:
+        return inspect.getmembers(cls, inspect.isfunction)
+
+
+def _get_function_signature(func):
+    if six.PY2:
+        return "(" + ", ".join(inspect.getargspec(func).args) + ")"
+    else:
+        return inspect.signature(func)
+
+
+def _format_as_black(contents):
+    import black as blk
+    return blk.format_file_contents(contents, fast=True, mode=blk.FileMode())
+
+
 def render_bmi(name, black=True, hints=True):
     """Render a template BMI implementation in Python
 
@@ -59,13 +80,15 @@ def render_bmi(name, black=True, hints=True):
         The contents of a new Python module that contains a template for
         a BMI implementation.
     """
+    black = black and six.PY3
+
     if _is_valid_class_name(name):
         env = jinja2.Environment()
         template = env.from_string(BMI_TEMPLATE)
 
         funcs = {}
-        for func_name, func in inspect.getmembers(Bmi, inspect.isfunction):
-            signature = inspect.signature(func)
+        for func_name, func in _get_bmi_methods(Bmi):
+            signature = _get_function_signature(func)
             if not hints:
                 signature = _remove_hints_from_signature(signature)
             funcs[func_name] = {"sig": signature, "doc": func.__doc__}
@@ -73,9 +96,7 @@ def render_bmi(name, black=True, hints=True):
         contents = template.render(name=name, funcs=funcs, with_hints=hints)
 
         if black:
-            contents = blk.format_file_contents(
-                contents, fast=True, mode=blk.FileMode()
-            )
+            contents = _format_as_black(contents)
 
         return contents
     else:
@@ -84,8 +105,8 @@ def render_bmi(name, black=True, hints=True):
 
 @click.command()
 @click.version_option()
-@click.option("--black / --no-black", default=True, help="format output with black")
-@click.option("--hints / --no-hints", default=True, help="include type hint annotation")
+@click.option("--black / --no-black", default=True, help="format output with black (requires Python 3)")
+@click.option("--hints / --no-hints", default=True, help="include type hint annotation (requires Python 3)")
 @click.argument("name")
 @click.pass_context
 def main(ctx, name, black, hints):
