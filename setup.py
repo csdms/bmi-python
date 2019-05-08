@@ -24,6 +24,7 @@ if version_info.major == 2:
         ]
     )
     install_requires.remove("black")
+    install_requires.append("typing")
 
 
 setup(
