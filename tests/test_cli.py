@@ -34,7 +34,7 @@ def test_cli_default(tmpdir):
         assert "MyBmi" in mod.__dict__
 
 
-@pytest.mark.skipif(six.PY2, reason="requires python 3")
+@pytest.mark.skip(reason="hints are disabled in v0")
 def test_cli_with_hints(tmpdir):
     runner = CliRunner()
     with tmpdir.as_cwd():
@@ -43,7 +43,7 @@ def test_cli_with_hints(tmpdir):
         assert "->" in result.output
 
 
-@pytest.mark.skipif(six.PY2, reason="requires python 3")
+@pytest.mark.skip(reason="hints are disabled in v0")
 def test_cli_without_hints(tmpdir):
     runner = CliRunner()
     with tmpdir.as_cwd():
@@ -65,9 +65,11 @@ def test_cli_with_black(tmpdir):
 def test_cli_without_black(tmpdir):
     runner = CliRunner()
     with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmiWithoutHints", "--no-black"])
-        assert result.exit_code == 0
-        assert max([len(line) for line in result.output.splitlines()]) > 88
+        result_without = runner.invoke(main, ["MyBmiWithoutHints", "--no-black"])
+        result_with = runner.invoke(main, ["MyBmiWithoutHints", "--black"])
+        assert result_with.exit_code == 0
+        assert result_without.exit_code == 0
+        assert result_with.output != result_without.output
 
 
 @pytest.mark.parametrize("bad_name", ["break", "0Bmi"])
