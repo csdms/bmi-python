@@ -81,6 +81,7 @@ def render_bmi(name, black=True, hints=True):
         a BMI implementation.
     """
     black = black and six.PY3
+    hints = True
 
     if _is_valid_class_name(name):
         env = jinja2.Environment()
@@ -106,7 +107,7 @@ def render_bmi(name, black=True, hints=True):
 @click.command()
 @click.version_option()
 @click.option("--black / --no-black", default=True, help="format output with black (requires Python 3)")
-@click.option("--hints / --no-hints", default=True, help="include type hint annotation (requires Python 3)")
+@click.option("--hints / --no-hints", default=True, help="include type hint annotation (currently disabled)")
 @click.argument("name")
 @click.pass_context
 def main(ctx, name, black, hints):
