@@ -61,6 +61,12 @@ class EmptyBmi(Bmi):
     def get_component_name(self):
         pass
 
+    def get_input_item_count(self):
+        pass
+
+    def get_output_item_count(self):
+        pass
+
     def get_input_var_names(self):
         pass
 
@@ -104,6 +110,9 @@ class EmptyBmi(Bmi):
         pass
 
     def get_grid_face_nodes(self, grid, face_nodes):
+        pass
+
+    def get_grid_face_edges(self, grid, face_edges):
         pass
 
     def get_grid_node_count(self, grid):
