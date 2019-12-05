@@ -1,6 +1,8 @@
 BMI for Python
 ==============
 
+Python bindings for the CSDMS `Basic Model Interface <https://bmi-spec.readthedocs.io>`_.
+
 Install
 -------
 
@@ -17,6 +19,13 @@ with conda from the *conda-forge* channel,
 
   $ conda install bmipy -c conda-forge
 
+To build and install *bmipy* from source,
+
+.. code-block:: bash
+
+  $ git clone https://github.com/csdms/bmi-python
+  $ cd bmi-python
+  $ pip install .
 
 Usage
 -----
@@ -30,3 +39,7 @@ Usage
 
       def initialize(self, config_file):
           # Your implementation goes here
+
+A complete sample implementation is given in the
+https://github.com/csdms/bmi-example-python
+repository.

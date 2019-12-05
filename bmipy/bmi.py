@@ -42,6 +42,17 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
+    def update_until(self, time: float) -> None:
+        """Advance model state until the given time.
+
+        Parameters
+        ----------
+        time : float
+            A model time later than the current model time.
+        """
+        ...
+
+    @abstractmethod
     def finalize(self) -> None:
         """Perform tear-down tasks for the model.
 
@@ -59,6 +70,28 @@ class Bmi(ABC):
         -------
         str
             The name of the component.
+        """
+        ...
+
+    @abstractmethod
+    def get_input_item_count(self) -> int:
+        """Count of a model's input variables.
+
+        Returns
+        -------
+        int
+          The number of input variables.
+        """
+        ...
+
+    @abstractmethod
+    def get_output_item_count(self) -> int:
+        """Count of a model's output variables.
+
+        Returns
+        -------
+        int
+          The number of output variables.
         """
         ...
 
@@ -618,6 +651,24 @@ class Bmi(ABC):
         -------
         ndarray of int
             The input numpy array that holds the edge-node connectivity.
+        """
+        ...
+
+    @abstractmethod
+    def get_grid_face_edges(self, grid: int, face_edges: np.ndarray) -> np.ndarray:
+        """Get the face-edge connectivity.
+
+        Parameters
+        ----------
+        grid : int
+            A grid identifier.
+        face_edges : ndarray of int
+            A numpy array to place the face-edge connectivity.
+
+        Returns
+        -------
+        ndarray of int
+            The input numpy array that holds the face-edge connectivity.
         """
         ...
 
