@@ -1,3 +1,30 @@
+.. raw:: html
+
+   <p align="left">
+
+   <a href="https://zenodo.org/badge/latestdoi/179283861">
+	 <img src="https://zenodo.org/badge/179283861.svg"
+	 alt="DOI"></a>
+
+   <a href='https://travis-ci.org/csdms/bmi-python'>
+	 <img src='https://travis-ci.org/csdms/bmi-python.svg?branch=master'
+	 alt='Build Status'></a>
+
+   <a href='https://anaconda.org/conda-forge/bmipy'>
+	 <img src='https://anaconda.org/conda-forge/bmipy/badges/version.svg'
+	 alt='Anaconda-Server Badge'></a>
+
+   <a href='https://anaconda.org/conda-forge/bmipy'>
+	 <img src='https://anaconda.org/conda-forge/bmipy/badges/platforms.svg'
+	 alt='Anaconda-Server Badge'></a>
+
+   <a href='https://anaconda.org/conda-forge/bmipy'>
+	 <img src='https://anaconda.org/conda-forge/bmipy/badges/downloads.svg'
+	 alt='Anaconda-Server Badge'></a>
+
+   </p>
+
+
 BMI for Python
 ==============
 
