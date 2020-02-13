@@ -304,7 +304,7 @@ class Bmi(ABC):
 
         Returns
         -------
-        float
+        str
             The model time unit; e.g., `days` or `s`.
 
         Notes
@@ -380,7 +380,7 @@ class Bmi(ABC):
             An input or output variable name, a CSDMS Standard Name.
         dest : ndarray
             A numpy array into which to place the values.
-        indices : array_like
+        inds : array_like
             The indices into the variable array.
 
         Returns
@@ -401,7 +401,7 @@ class Bmi(ABC):
 
         Parameters
         ----------
-        var_name : str
+        name : str
             An input or output variable name, a CSDMS Standard Name.
         src : array_like
             The new value for the specified variable.
@@ -416,9 +416,9 @@ class Bmi(ABC):
 
         Parameters
         ----------
-        var_name : str
+        name : str
             An input or output variable name, a CSDMS Standard Name.
-        indices : array_like
+        inds : array_like
             The indices into the variable array.
         src : array_like
             The new value for the specified variable.
