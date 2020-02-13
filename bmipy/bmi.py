@@ -391,7 +391,7 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def set_value(self, name: str, values: np.ndarray) -> None:
+    def set_value(self, name: str, src: np.ndarray) -> None:
         """Specify a new value for a model variable.
 
         This is the setter for the model, used to change the model's
