@@ -703,11 +703,11 @@ class Bmi(ABC):
         grid : int
             A grid identifier.
         nodes_per_face : ndarray of int, shape *(nfaces,)*
-            A numpy array to place the number of edges per face.
+            A numpy array to place the number of nodes per face.
 
         Returns
         -------
         ndarray of int
-            The input numpy array that holds the number of nodes per edge.
+            The input numpy array that holds the number of nodes per face.
         """
         ...
