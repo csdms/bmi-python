@@ -1,2 +1,5 @@
 include versioneer.py
 include bmipy/_version.py
+include LICENSE
+include requirements.txt
+include README.rst

@@ -4,9 +4,9 @@ os:
 - osx
 env:
   matrix:
-  - CONDA_ENV=3.8
-  - CONDA_ENV=3.7
-  - CONDA_ENV=3.6
+  - PYTHON=3.8
+  - PYTHON=3.7
+  - PYTHON=3.6
 sudo: false
 jobs:
   include:
@@ -50,10 +50,11 @@ before_install:
 - export PATH="$HOME/anaconda/bin:$PATH"
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
-- conda create -n test_env python=$CONDA_ENV
+- conda create -n test_env python=$PYTHON
 - source activate test_env
 install:
-- pip install . -r requirements.txt
+- pip install -e .
 script:
+- pip install -r requirements-testing.txt
 - pytest --cov=bmipy --cov-report=xml:$(pwd)/coverage.xml -vvv
 after_success: coveralls

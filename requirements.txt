@@ -1,4 +1,4 @@
-coveralls
-flake8
-pytest>=3.6
-pytest-cov
+black
+click
+jinja2
+numpy
