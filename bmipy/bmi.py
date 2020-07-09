@@ -1,3 +1,10 @@
+"""The Basic Model Interface (BMI) Python specification.
+
+This language specification is derived from the Scientific Interface
+Definition Language (SIDL) file bmi.sidl located at
+https://github.com/csdms/bmi.
+"""
+
 from abc import ABC, abstractmethod
 from typing import Tuple
 
