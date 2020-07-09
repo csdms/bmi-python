@@ -12,7 +12,7 @@ class Bmi(ABC):
         Perform all tasks that take place before entering the model's time
         loop, including opening files and initializing the model state. Model
         inputs are read from a text-based configuration file, specified by
-        `filename`.
+        `config_file`.
 
         Parameters
         ----------
