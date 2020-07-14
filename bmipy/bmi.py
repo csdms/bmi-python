@@ -1,3 +1,10 @@
+"""The Basic Model Interface (BMI) Python specification.
+
+This language specification is derived from the Scientific Interface
+Definition Language (SIDL) file bmi.sidl located at
+https://github.com/csdms/bmi.
+"""
+
 from abc import ABC, abstractmethod
 from typing import Tuple
 
@@ -12,7 +19,7 @@ class Bmi(ABC):
         Perform all tasks that take place before entering the model's time
         loop, including opening files and initializing the model state. Model
         inputs are read from a text-based configuration file, specified by
-        `filename`.
+        `config_file`.
 
         Parameters
         ----------
