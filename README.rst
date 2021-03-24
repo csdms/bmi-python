@@ -28,7 +28,7 @@
 BMI for Python
 ==============
 
-Python bindings for the CSDMS `Basic Model Interface <https://bmi-spec.readthedocs.io>`_.
+Python bindings for the CSDMS `Basic Model Interface <https://bmi.readthedocs.io>`_.
 
 Install
 -------
