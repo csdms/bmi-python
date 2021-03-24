@@ -1,5 +1,6 @@
 from click.testing import CliRunner
 import pytest
+import sys
 
 from bmipy.cmd import main
 
@@ -18,6 +19,9 @@ def test_cli_help():
     assert "help" in result.output
 
 
+@pytest.mark.skipif(
+    sys.platform == "win32", reason="See https://github.com/csdms/bmi-python/issues/10"
+)
 def test_cli_default(tmpdir):
     import importlib
     import sys
