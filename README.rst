@@ -6,8 +6,8 @@
 	 <img src="https://zenodo.org/badge/179283861.svg"
 	 alt="DOI"></a>
 
-   <a href='https://travis-ci.org/csdms/bmi-python'>
-	 <img src='https://travis-ci.org/csdms/bmi-python.svg?branch=master'
+   <a href='https://github.com/csdms/bmi-python/actions/workflows/test.yml'>
+	 <img src='https://github.com/csdms/bmi-python/actions/workflows/test.yml/badge.svg'
 	 alt='Build Status'></a>
 
    <a href='https://anaconda.org/conda-forge/bmipy'>
