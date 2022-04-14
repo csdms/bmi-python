@@ -1,27 +1,34 @@
+.. raw:: html
+
+   <p align="left">
+
+   <a href="https://zenodo.org/badge/latestdoi/179283861">
+	 <img src="https://zenodo.org/badge/179283861.svg"
+	 alt="DOI"></a>
+
+   <a href='https://github.com/csdms/bmi-python/actions/workflows/test.yml'>
+	 <img src='https://github.com/csdms/bmi-python/actions/workflows/test.yml/badge.svg'
+	 alt='Build Status'></a>
+
+   <a href='https://anaconda.org/conda-forge/bmipy'>
+	 <img src='https://anaconda.org/conda-forge/bmipy/badges/version.svg'
+	 alt='Anaconda-Server Badge'></a>
+
+   <a href='https://anaconda.org/conda-forge/bmipy'>
+	 <img src='https://anaconda.org/conda-forge/bmipy/badges/platforms.svg'
+	 alt='Anaconda-Server Badge'></a>
+
+   <a href='https://anaconda.org/conda-forge/bmipy'>
+	 <img src='https://anaconda.org/conda-forge/bmipy/badges/downloads.svg'
+	 alt='Anaconda-Server Badge'></a>
+
+   </p>
+
+
 BMI for Python
 ==============
 
 Python bindings for the CSDMS `Basic Model Interface <https://bmi.readthedocs.io>`_.
-
-.. image:: https://zenodo.org/badge/179283861.svg
-    :target: https://zenodo.org/badge/latestdoi/179283861
-    :alt: DOI
-
-.. image:: https://github.com/csdms/bmi-python/actions/workflows/test.yml/badge.svg
-    :target: https://github.com/csdms/bmi-python/actions/workflows/test.yml
-    :alt: Build Status
-
-.. image:: https://anaconda.org/conda-forge/bmipy/badges/version.svg
-    :target: https://anaconda.org/conda-forge/bmipy
-    :alt: Anaconda-Server Badge
-
-.. image:: https://anaconda.org/conda-forge/bmipy/badges/platforms.svg
-    :target: https://anaconda.org/conda-forge/bmipy
-    :alt: Anaconda-Server Badge
-
-.. image:: https://anaconda.org/conda-forge/bmipy/badges/downloads.svg
-    :target: https://anaconda.org/conda-forge/bmipy
-    :alt: Anaconda-Server Badge
 
 Install
 -------

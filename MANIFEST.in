@@ -1,2 +1,2 @@
-include pyproject.toml README.rst versioneer.py
+include versioneer.py
 include bmipy/_version.py
