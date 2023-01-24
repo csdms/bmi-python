@@ -1,3 +1,45 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools >=61"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "bmipy"
+description = "Basic Model Interface for Python"
+readme = "README.rst"
+authors = [
+    {name = "Eric Hutton", email = "huttone@colorado.edu"},
+]
+keywords = ["BMI", "Basic Model Interface"]
+license = {text = "MIT"}
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Scientific/Engineering :: Hydrology",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+requires-python = ">=3.7"
+dependencies = [
+    "black",
+    "click",
+    "jinja2",
+    "numpy",
+]
+dynamic = ["version"]
+
+[project.scripts]
+bmipy-render = "bmipy.cmd:main"
+
+[project.urls]
+Documentation = "https://bmi.readthedocs.io"
+Source = "https://github.com/csdms/bmi-python"
+
+[tool.setuptools.packages.find]
+include = ["bmipy", "bmipy.*"]
