@@ -1,7 +1,4 @@
-from ._version import get_versions
+from ._version import __version__
 from .bmi import Bmi
 
-__all__ = ["Bmi"]
-
-__version__ = get_versions()["version"]
-del get_versions
+__all__ = ["__version__", "Bmi"]

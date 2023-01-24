@@ -41,5 +41,8 @@ bmipy-render = "bmipy.cmd:main"
 Documentation = "https://bmi.readthedocs.io"
 Source = "https://github.com/csdms/bmi-python"
 
+[tool.setuptools.dynamic]
+version = {attr = "bmipy._version.__version__"}
+
 [tool.setuptools.packages.find]
 include = ["bmipy", "bmipy.*"]

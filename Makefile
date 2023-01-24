@@ -85,5 +85,11 @@ dist: clean ## builds source and wheel package
 	python -m build
 	ls -l dist
 
+prerelease: clean ## generate a prerelease with zest.releaser
+	prerelease
+
+fullrelease: clean ## generate a full release with zest.releaser
+	fullrelease
+
 install: clean ## install the package to the active Python's site-packages
-	pip install .
+	pip install -e .
