@@ -1,3 +1,4 @@
+"""Command line interface that create template BMI implementations."""
 import inspect
 import keyword
 import re
@@ -29,7 +30,7 @@ class {{ name }}(Bmi):
 def _remove_hints_from_signature(signature):
     """Remove hint annotation from a signature."""
     params = []
-    for name, param in signature.parameters.items():
+    for _, param in signature.parameters.items():
         params.append(param.replace(annotation=inspect.Parameter.empty))
     return signature.replace(
         parameters=params, return_annotation=inspect.Signature.empty
@@ -42,7 +43,7 @@ def _is_valid_class_name(name):
 
 
 def render_bmi(name, black=True, hints=True):
-    """Render a template BMI implementation in Python
+    """Render a template BMI implementation in Python.
 
     Parameters
     ----------
@@ -79,7 +80,7 @@ def render_bmi(name, black=True, hints=True):
 
         return contents
     else:
-        raise ValueError("invalid class name ({0})".format(name))
+        raise ValueError(f"invalid class name ({name})")
 
 
 @click.command()
@@ -94,7 +95,7 @@ def main(ctx, name, black, hints):
         print(render_bmi(name, black=black, hints=hints))
     else:
         click.secho(
-            "💥 💔 💥 '{0}' is not a valid class name in Python".format(name),
+            f"💥 💔 💥 {name!r} is not a valid class name in Python",
             err=True,
             fg="red",
         )

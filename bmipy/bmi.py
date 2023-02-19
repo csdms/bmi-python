@@ -1,17 +1,17 @@
 """The Basic Model Interface (BMI) Python specification.
 
 This language specification is derived from the Scientific Interface
-Definition Language (SIDL) file bmi.sidl located at
-https://github.com/csdms/bmi.
+Definition Language (SIDL) file `bmi.sidl <https://github.com/csdms/bmi>`_.
 """
 
 from abc import ABC, abstractmethod
-from typing import Tuple
 
 import numpy as np
 
 
 class Bmi(ABC):
+    """Base class for implementations of a Python-based BMI."""
+
     @abstractmethod
     def initialize(self, config_file: str) -> None:
         """Perform startup tasks for the model.
@@ -103,7 +103,7 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_input_var_names(self) -> Tuple[str]:
+    def get_input_var_names(self) -> tuple[str]:
         """List of a model's input variables.
 
         Input variable names must be CSDMS Standard Names, also known
@@ -126,7 +126,7 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_output_var_names(self) -> Tuple[str]:
+    def get_output_var_names(self) -> tuple[str]:
         """List of a model's output variables.
 
         Output variable names must be CSDMS Standard Names, also known
@@ -272,7 +272,7 @@ class Bmi(ABC):
 
     @abstractmethod
     def get_current_time(self) -> float:
-        """Current time of the model.
+        """Return the current time of the model.
 
         Returns
         -------
@@ -322,7 +322,7 @@ class Bmi(ABC):
 
     @abstractmethod
     def get_time_step(self) -> float:
-        """Current time step of the model.
+        """Return the current time step of the model.
 
         The model time step should be of type float.
 
