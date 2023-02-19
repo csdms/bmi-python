@@ -20,39 +20,33 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [3.7, 3.8, 3.9, '3.10', '3.11']
+        python-version: ["3.9", "3.10", "3.11"]
 
     steps:
       - uses: actions/checkout@v2
-
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: wntrblm/nox@2022.8.7
         with:
-          python-version: ${{ matrix.python-version }}
-          miniforge-variant: Mambaforge
-          miniforge-version: latest
-
-      - name: Show conda installation info
-        run: |
-          mamba info
-          mamba list
-
-      - name: Install requirements
-        run: |
-          mamba install black click jinja2 numpy
-          mamba list
-
-      - name: Build and install package
-        run: |
-          pip install -e .
-
-      - name: Install testing dependencies
-        run: mamba install --file=requirements.txt
+          python-versions: ${{ matrix.python-version }}
 
       - name: Test
         run: |
-          python -c 'import bmipy; print(bmipy.__version__)'
-          pytest --cov=bmipy --cov-report=xml:$(pwd)/coverage.xml -vvv
+          nox -s test
 
       - name: Coveralls
-        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'
-        uses: AndreMiras/coveralls-python-action@v20201129
+        if: matrix.os == 'ubuntu-latest'
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          parallel: true
+          flag-name: py${{ matrix.python-version }}-${{ matrix.os }}
+
+          debug: true
+
+  coveralls_finish:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          parallel-finished: true
+          debug: true
