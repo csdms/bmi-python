@@ -24,13 +24,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: wntrblm/nox@2022.8.7
-        with:
-          python-versions: ${{ matrix.python-version }}
+      - excitedleigh/setup-nox@v2.0.0
 
       - name: Test
         run: |
-          nox -s test
+          nox --force-python=${{ matrix.python-version }} -s test
 
       - name: Coveralls
         if: matrix.os == 'ubuntu-latest'
