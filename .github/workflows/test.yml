@@ -31,8 +31,9 @@ jobs:
 
       - name: Test
         run: |
+          pip install --upgrade pip
           pip install nox
-          nox --force-python=${{ matrix.python-version }} --non-interactive --error-on-missing-interpreter -s test
+          nox --non-interactive --error-on-missing-interpreter -s test
 
 
       - name: Coveralls
