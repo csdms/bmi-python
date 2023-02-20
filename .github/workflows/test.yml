@@ -24,17 +24,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: conda-incubator/setup-miniconda@v2
         with:
-          python-version: "${{ matrix.python-version }}"
+          python-version: ${{ matrix.python-version }}
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
 
       - name: Test
         run: |
           pip install --upgrade pip
           pip install nox
           nox --non-interactive --error-on-missing-interpreter -s test
-
 
       - name: Coveralls
         if: matrix.os == 'ubuntu-latest'
