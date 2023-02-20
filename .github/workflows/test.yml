@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: wntrblm/nox@2022.8.7
+      - uses: wntrblm/nox@2022.11.21
         with:
           python-versions: "${{ matrix.python-version }}"
 
@@ -46,10 +46,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
+      - uses: wntrblm/nox@2022.11.21
         with:
-          python-version: 3.9
+          python-versions: "3.9"
       - name: Lint
         run: nox --non-interactive --error-on-missing-interpreter --session "lint"
 
