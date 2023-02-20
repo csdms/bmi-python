@@ -24,11 +24,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: excitedleigh/setup-nox@v2.0.0
+      - uses: wntrblm/nox@2022.8.7
+        with:
+          python-versions: "${{ matrix.python-version }}"
 
       - name: Test
         run: |
-          nox --force-python=${{ matrix.python-version }} -s test
+          nox --force-python=${{ matrix.python-version }} --non-interactive --error-on-missing-interpreter -s test
+
 
       - name: Coveralls
         if: matrix.os == 'ubuntu-latest'
@@ -38,6 +41,18 @@ jobs:
           flag-name: py${{ matrix.python-version }}-${{ matrix.os }}
 
           debug: true
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Lint
+        run: nox --non-interactive --error-on-missing-interpreter --session "lint"
+
 
   coveralls_finish:
     needs: build-and-test
