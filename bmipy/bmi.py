@@ -398,6 +398,60 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
+    def get_state(self) -> str:
+        """Get all the information the model needs to re-initaite itself
+        
+        This is a getter for the model, used to get all of the model's
+        current state. State is defined as all variables needed for the model to 
+        advance to the next time step. If the output of get_state() is given
+        as input to set_state() of a freshly initiated model and update() is run
+        this should result in exactly the same new state of the model as running
+        update() on the original model.
+        
+        Returns
+        -------
+        str
+            A string that contains all the information as explained above. The
+            format of this string is up to the modeller but best practices include:
+            - netCDF for models that have gridded geospatial data for their states.
+            - json for non-gridded models
+            using these format allows for easy writing to file of the state when
+            that is required and easy parsing back into a running model using
+            set_state()
+            remember to include time as a variable in the state as well!
+            
+        """
+        ...
+
+    @abstractmethod
+    def get_state_ptr(self) -> np.ndarray:
+        """Get all the information the model needs to re-initaite itself
+        
+        This is a getter for the model, used to get a reference to all of the model's
+        current state. State is defined as all variables needed for the model to 
+        advance to the next time step. If the output of get_state_ptr() is given
+        as input to set_state_ptr() of a freshly initiated model and update() is run
+        this should result in exactly the same new state of the model as running
+        update() on the original model.
+        
+        Returns
+        -------
+        array_like
+            A reference to the state. The format format of how the state is stored at 
+            the reference is up to the modeller but best practices include:
+            - netCDF for models that have gridded geospatial data for their states.
+            - json for non-gridded models
+            using these format allows for easy writing to file of the state when
+            that is required and easy parsing back into a running model using
+            set_state()
+            remember to include time as a variable in the state as well!
+            
+        """
+        ...
+
+        
+        
+    @abstractmethod
     def set_value(self, name: str, src: np.ndarray) -> None:
         """Specify a new value for a model variable.
 
@@ -432,7 +486,62 @@ class Bmi(ABC):
         """
         ...
 
-    # Grid information
+    @abstractmethod
+    def set_state(self, state: str) -> None:
+        """Set all the information the model needs to re-initaite itself
+        
+        This is a setter for the model, used to set all of the model's
+        current state. State is defined as all variables needed for the model to 
+        advance to the next time step. If the output of get_state() is given
+        as input to set_state() of a freshly initiated model and update() is run
+        this should result in exactly the same new state of the model as running
+        update() on the original model.
+        
+        Parameters
+        -------
+        state, str
+            A string that contains all the information as explained above. The
+            format of this string is up to the modeller but best practices include:
+            - netCDF for models that have gridded geospatial data for their states.
+            - json for non-gridded models
+            using these format allows for easy writing to file of the state when
+            that is required and easy parsing back into a running model using
+            set_state()
+            remember to include time as a variable in the state as well!
+            
+        """
+        ...
+
+    @abstractmethod
+    def set_state_ptr(self, state_loc: np.ndarray) -> None:
+        """Set all the information the model needs to re-initaite itself
+        
+        This is a Setter for the model, used to set all of the model's
+        current state. State is defined as all variables needed for the model to 
+        advance to the next time step. If the output of get_state_ptr() is given
+        as input to set_state_ptr() of a freshly initiated model and update() is run
+        this should result in exactly the same new state of the model as running
+        update() on the original model.
+        
+        Returns
+        -------
+        array_like
+            A reference to the state. The format format of how the state is stored at 
+            the reference is up to the modeller but best practices include:
+            - netCDF for models that have gridded geospatial data for their states.
+            - json for non-gridded models
+            using these format allows for easy writing to file of the state when
+            that is required and easy parsing back into a running model using
+            set_state()
+            remember to include time as a variable in the state as well!
+            
+        """
+        ...
+
+        
+        
+
+# Grid information
     @abstractmethod
     def get_grid_rank(self, grid: int) -> int:
         """Get number of dimensions of the computational grid.

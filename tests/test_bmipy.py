@@ -52,10 +52,22 @@ class EmptyBmi(Bmi):
     def get_value_at_indices(self, var_name, indices):
         pass
 
+    def get_state(self):
+        pass
+
+    def get_state_ptr(self, var_name):
+        pass
+
     def set_value(self, var_name, src):
         pass
 
     def set_value_at_indices(self, var_name, src, indices):
+        pass
+
+    def set_state(self, src):
+        pass
+
+    def get_state_ptr(self, src):
         pass
 
     def get_component_name(self):
