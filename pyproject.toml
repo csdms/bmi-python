@@ -46,3 +46,6 @@ version = {attr = "bmipy._version.__version__"}
 
 [tool.setuptools.packages.find]
 include = ["bmipy", "bmipy.*"]
+
+[tool.setuptools.package-data]
+bmipy = ["py.typed"]
