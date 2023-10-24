@@ -1,6 +1,7 @@
-from click.testing import CliRunner
-import pytest
 import sys
+
+import pytest
+from click.testing import CliRunner
 
 from bmipy.cmd import main
 
