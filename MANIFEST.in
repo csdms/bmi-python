@@ -4,5 +4,6 @@ include noxfile.py
 include pyproject.toml
 include requirements.in
 
+recursive-include bmipy *.typed
 recursive-include requirements *.md *.txt
 recursive-include tests *.py
