@@ -5,4 +5,5 @@ include pyproject.toml
 include requirements.in
 include requirements.txt
 
+recursive-include bmipy *.typed
 recursive-include tests *.py

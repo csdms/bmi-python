@@ -42,6 +42,9 @@ dynamic = ["version"]
 
 [tool]
 
+  [tool.setuptools.package-data]
+  bmipy = ["py.typed"]
+
   [tool.setuptools.dynamic]
   version = {attr = "bmipy._version.__version__"}
 
