@@ -1,2 +1,8 @@
-include pyproject.toml README.rst
-include bmipy/_version.py
+include .pre-commit-config.yaml
+include README.rst
+include noxfile.py
+include pyproject.toml
+include requirements.in
+include requirements.txt
+
+recursive-include tests *.py

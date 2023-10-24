@@ -12,12 +12,11 @@ authors = [
 keywords = ["BMI", "Basic Model Interface"]
 license = {text = "MIT"}
 classifiers = [
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -25,7 +24,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Hydrology",
     "Topic :: Scientific/Engineering :: Physics",
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 dependencies = [
     "black",
     "click",
@@ -34,18 +33,45 @@ dependencies = [
 ]
 dynamic = ["version"]
 
-[project.scripts]
-bmipy-render = "bmipy.cmd:main"
+  [project.scripts]
+  bmipy-render = "bmipy.cmd:main"
 
-[project.urls]
-Documentation = "https://bmi.readthedocs.io"
-Source = "https://github.com/csdms/bmi-python"
+  [project.urls]
+  Documentation = "https://bmi.readthedocs.io"
+  Source = "https://github.com/csdms/bmi-python"
 
-[tool.setuptools.dynamic]
-version = {attr = "bmipy._version.__version__"}
+[tool]
 
-[tool.setuptools.packages.find]
-include = ["bmipy", "bmipy.*"]
+  [tool.setuptools.package-data]
+  bmipy = ["py.typed"]
 
-[tool.setuptools.package-data]
-bmipy = ["py.typed"]
+  [tool.setuptools.dynamic]
+  version = {attr = "bmipy._version.__version__"}
+
+  [tool.pytest.ini_options]
+  minversion = "6.0"
+  testpaths = ["src", "tests"]
+  norecursedirs = [".*", "*.egg*", "build", "dist"]
+  addopts = """
+    --ignore setup.py
+    --tb native
+    --durations 16
+    --strict-markers
+    --doctest-modules
+    -vvv
+  """
+  doctest_optionflags = [
+    "NORMALIZE_WHITESPACE",
+    "IGNORE_EXCEPTION_DETAIL",
+    "ALLOW_UNICODE"
+  ]
+
+  [tool.isort]
+  multi_line_output = 3
+  include_trailing_comma = true
+  force_grid_wrap = 0
+  combine_as_imports = true
+  line_length = 88
+
+  [tool.check-manifest]
+  ignore = [".nox", "build"]
