@@ -11,8 +11,8 @@ ROOT = pathlib.Path(__file__).parent
 @nox.session
 def test(session: nox.Session) -> None:
     """Run the tests."""
-    session.install("coveralls", "pytest", "pytest-cov")
-    session.install(".")
+    session.install("-r", "requirements/requires.txt", "-r", "requirements/testing.txt")
+    session.install(".", "--no-deps")
 
     args = ["--cov", PROJECT, "-vvv"] + session.posargs
 
@@ -27,7 +27,8 @@ def test(session: nox.Session) -> None:
 @nox.session(name="test-cli")
 def test_cli(session: nox.Session) -> None:
     """Test the command line interface."""
-    session.install(".")
+    session.install("-r", "requirements/requires.txt")
+    session.install(".", "--no-deps")
     session.run("bmi-render", "--help")
     session.run("bmi-render", "--version")
 
