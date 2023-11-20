@@ -104,14 +104,14 @@ class Bmi(ABC):
 
     @abstractmethod
     def get_input_var_names(self) -> tuple[str]:
-        """List of a model's input variables.
+        """Get the model's input variables.
 
         Input variable names must be CSDMS Standard Names, also known
         as *long variable names*.
 
         Returns
         -------
-        list of str
+        tuple of str
             The input variables for the model.
 
         Notes
@@ -127,14 +127,14 @@ class Bmi(ABC):
 
     @abstractmethod
     def get_output_var_names(self) -> tuple[str]:
-        """List of a model's output variables.
+        """Get the model's output variables.
 
         Output variable names must be CSDMS Standard Names, also known
         as *long variable names*.
 
         Returns
         -------
-        list of str
+        tuple of str
             The output variables for the model.
         """
         ...
