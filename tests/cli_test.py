@@ -4,75 +4,75 @@ import sys
 
 import pytest
 from bmipy.cmd import main
-from click.testing import CliRunner
+from bmipy.cmd import WITH_BLACK
 
 
-def test_cli_version():
-    runner = CliRunner()
-    result = runner.invoke(main, ["--version"])
-    assert result.exit_code == 0
-    assert "version" in result.output
+def test_cli_version(capsys):
+    try:
+        assert main(["--version"]) == 0
+    except SystemExit:
+        pass
+    output = capsys.readouterr().out
+
+    assert "bmipy" in output
 
 
-def test_cli_help():
-    runner = CliRunner()
-    result = runner.invoke(main, ["--help"])
-    assert result.exit_code == 0
-    assert "help" in result.output
+def test_cli_help(capsys):
+    try:
+        assert main(["--help"]) == 0
+    except SystemExit:
+        pass
+    output = capsys.readouterr().out
+
+    assert "help" in output
 
 
 @pytest.mark.skipif(
     sys.platform == "win32", reason="See https://github.com/csdms/bmi-python/issues/10"
 )
-def test_cli_default(tmpdir):
+def test_cli_default(capsys, tmpdir):
     import importlib
     import sys
 
-    runner = CliRunner()
     with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmi"])
-        assert result.exit_code == 0
+        assert main(["MyBmi"]) == 0
+        output = capsys.readouterr().out
         with open("mybmi.py", "w") as fp:
-            fp.write(result.output)
+            fp.write(output)
         sys.path.append(".")
         mod = importlib.import_module("mybmi")
         assert "MyBmi" in mod.__dict__
 
 
-def test_cli_with_hints(tmpdir):
-    runner = CliRunner()
+def test_cli_with_hints(capsys, tmpdir):
     with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmiWithHints", "--hints"])
-        assert result.exit_code == 0
-        assert "->" in result.output
+        assert main(["MyBmiWithHints", "--hints"]) == 0
+        output = capsys.readouterr().out
+        assert "->" in output
 
 
-def test_cli_without_hints(tmpdir):
-    runner = CliRunner()
+def test_cli_without_hints(capsys, tmpdir):
     with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmiWithoutHints", "--no-hints"])
-        assert result.exit_code == 0
-        assert "->" not in result.output
+        assert main(["MyBmiWithoutHints", "--no-hints"]) == 0
+        output = capsys.readouterr().out
+        assert "->" not in output
 
 
-def test_cli_with_black(tmpdir):
-    runner = CliRunner()
+@pytest.mark.skipif(not WITH_BLACK, reason="black is not installed")
+def test_cli_with_black(capsys, tmpdir):
     with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmiWithHints", "--black"])
-        assert result.exit_code == 0
-        assert max([len(line) for line in result.output.splitlines()]) <= 88
+        assert main(["MyBmiWithHints", "--black"]) == 0
+        output = capsys.readouterr().out
+        assert max(len(line) for line in output.splitlines()) <= 88
 
 
-def test_cli_without_black(tmpdir):
-    runner = CliRunner()
+def test_cli_without_black(capsys, tmpdir):
     with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmiWithoutHints", "--no-black"])
-        assert result.exit_code == 0
-        assert max([len(line) for line in result.output.splitlines()]) > 88
+        assert main(["MyBmiWithHints", "--hints", "--no-black"]) == 0
+        output = capsys.readouterr().out
+        assert max(len(line) for line in output.splitlines()) > 88
 
 
 @pytest.mark.parametrize("bad_name", ["True", "0Bmi"])
-def test_cli_with_bad_class_name(tmpdir, bad_name):
-    runner = CliRunner()
-    result = runner.invoke(main, [bad_name])
-    assert result.exit_code == 1
+def test_cli_with_bad_class_name(capsys, tmpdir, bad_name):
+    assert main([bad_name]) != 0
