@@ -252,8 +252,8 @@ class Bmi(ABC):
 
         *face*
             A plane or surface enclosed by a set of edges. In a 2D
-            horizontal application one may consider the word “polygon”,
-            but in the hierarchy of elements the word “face” is most common.
+            horizontal application one may consider the word "polygon",
+            but in the hierarchy of elements the word "face" is most common.
 
         Parameters
         ----------
