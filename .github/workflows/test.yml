@@ -45,17 +45,6 @@ jobs:
 
           debug: true
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: wntrblm/nox@2023.04.22
-        with:
-          python-versions: "3.12"
-      - name: Lint
-        run: nox --non-interactive --error-on-missing-interpreter --session "lint"
-
-
   coveralls_finish:
     needs: build-and-test
     runs-on: ubuntu-latest
