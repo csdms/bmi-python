@@ -1,21 +1,30 @@
 """Command line interface that create template BMI implementations."""
+from __future__ import annotations
+
+import argparse
+import functools
 import inspect
 import keyword
 import re
+import sys
 
-import black as blk
-import click
 import jinja2
+from bmipy._version import __version__
+from bmipy.bmi import Bmi
 
-from bmipy import Bmi
+try:
+    import black as blk
+except ModuleNotFoundError:
+    WITH_BLACK = False
+else:
+    WITH_BLACK = True
 
-BMI_TEMPLATE = """# -*- coding: utf-8 -*-
-{% if with_hints -%}
-from typing import Tuple
-{%- endif %}
+BMI_TEMPLATE = """\
+from __future__ import annotations
 
-from bmipy import Bmi
 import numpy
+
+from bmipy.bmi import Bmi
 
 
 class {{ name }}(Bmi):
@@ -26,8 +35,11 @@ class {{ name }}(Bmi):
 {% endfor %}
 """
 
+err = functools.partial(print, file=sys.stderr)
+out = functools.partial(print, file=sys.stderr)
 
-def _remove_hints_from_signature(signature):
+
+def _remove_hints_from_signature(signature: inspect.Signature) -> inspect.Signature:
     """Remove hint annotation from a signature."""
     params = []
     for _, param in signature.parameters.items():
@@ -37,12 +49,12 @@ def _remove_hints_from_signature(signature):
     )
 
 
-def _is_valid_class_name(name):
+def _is_valid_class_name(name: str) -> bool:
     p = re.compile(r"^[^\d\W]\w*\Z", re.UNICODE)
-    return p.match(name) and not keyword.iskeyword(name)
+    return bool(p.match(name)) and not keyword.iskeyword(name)
 
 
-def render_bmi(name, black=True, hints=True):
+def render_bmi(name: str, black: bool = True, hints: bool = True) -> str:
     """Render a template BMI implementation in Python.
 
     Parameters
@@ -83,20 +95,52 @@ def render_bmi(name, black=True, hints=True):
         raise ValueError(f"invalid class name ({name})")
 
 
-@click.command()
-@click.version_option()
-@click.option("--black / --no-black", default=True, help="format output with black")
-@click.option("--hints / --no-hints", default=True, help="include type hint annotation")
-@click.argument("name")
-@click.pass_context
-def main(ctx, name, black, hints):
+def main() -> int:
     """Render a template BMI implementation in Python for class NAME."""
-    if _is_valid_class_name(name):
-        print(render_bmi(name, black=black, hints=hints))
-    else:
-        click.secho(
-            f"💥 💔 💥 {name!r} is not a valid class name in Python",
-            err=True,
-            fg="red",
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--version", action="version", version=f"bmipy {__version__}")
+    parser.add_argument("name")
+
+    black_parser = parser.add_mutually_exclusive_group()
+    if WITH_BLACK:
+        black_parser.add_argument(
+            "--black",
+            action="store_true",
+            dest="black",
+            default=False,
+            help="format output with black",
         )
-        ctx.exit(code=1)
+    black_parser.add_argument(
+        "--no-black",
+        action="store_false",
+        dest="black",
+        default=False,
+        help="format output with black",
+    )
+    hints_group = parser.add_mutually_exclusive_group()
+    hints_group.add_argument(
+        "--hints",
+        action="store_true",
+        dest="hints",
+        help="include type hint annotation",
+    )
+    hints_group.add_argument(
+        "--no-hints",
+        action="store_false",
+        dest="hints",
+        help="include type hint annotation",
+    )
+
+    args = parser.parse_args()
+
+    if _is_valid_class_name(args.name):
+        print(render_bmi(args.name, black=args.black, hints=args.hints))
+    else:
+        err(f"💥 💔 💥 {args.name!r} is not a valid class name in Python")
+        return 1
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
