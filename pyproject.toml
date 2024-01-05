@@ -26,7 +26,6 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Physics",
 ]
 dependencies = [
-    "black",
     "jinja2",
     "numpy",
 ]
@@ -42,8 +41,9 @@ text = "MIT"
 bmipy-render = "bmipy.cmd:main"
 
 [project.urls]
-Documentation = "https://bmi.readthedocs.io"
-Source = "https://github.com/csdms/bmi-python"
+documentation = "https://bmi.readthedocs.io"
+homepage = "https://bmi.readthedocs.io"
+repository = "https://github.com/csdms/bmi-python"
 
 [build-system]
 requires = [
