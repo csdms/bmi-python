@@ -27,9 +27,9 @@ def test_cli_help(capsys):
     assert "help" in output
 
 
-@pytest.mark.skipif(
-    sys.platform == "win32", reason="See https://github.com/csdms/bmi-python/issues/10"
-)
+# @pytest.mark.skipif(
+#     sys.platform == "win32", reason="See https://github.com/csdms/bmi-python/issues/10"
+# )
 def test_cli_default(capsys, tmpdir):
     import importlib
     import sys
