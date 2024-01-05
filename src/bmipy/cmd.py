@@ -95,7 +95,7 @@ def render_bmi(name: str, black: bool = True, hints: bool = True) -> str:
         raise ValueError(f"invalid class name ({name})")
 
 
-def main() -> int:
+def main(args: tuple[str, ...] | None = None) -> int:
     """Render a template BMI implementation in Python for class NAME."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--version", action="version", version=f"bmipy {__version__}")
@@ -121,6 +121,7 @@ def main() -> int:
     hints_group.add_argument(
         "--hints",
         action="store_true",
+        default=True,
         dest="hints",
         help="include type hint annotation",
     )
@@ -128,15 +129,20 @@ def main() -> int:
         "--no-hints",
         action="store_false",
         dest="hints",
+        default=True,
         help="include type hint annotation",
     )
 
-    args = parser.parse_args()
+    parsed_args = parser.parse_args(args)
 
-    if _is_valid_class_name(args.name):
-        print(render_bmi(args.name, black=args.black, hints=args.hints))
+    if _is_valid_class_name(parsed_args.name):
+        print(
+            render_bmi(
+                parsed_args.name, black=parsed_args.black, hints=parsed_args.hints
+            )
+        )
     else:
-        err(f"💥 💔 💥 {args.name!r} is not a valid class name in Python")
+        err(f"💥 💔 💥 {parsed_args.name!r} is not a valid class name in Python")
         return 1
 
     return 0
