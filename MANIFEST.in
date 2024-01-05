@@ -1,9 +1,0 @@
-include .pre-commit-config.yaml
-include README.rst
-include noxfile.py
-include pyproject.toml
-include requirements.in
-
-recursive-include requirements *.md *.txt
-recursive-include src/bmipy *.typed
-recursive-include tests *.py
