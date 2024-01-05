@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 import sys
 
 import pytest
-from click.testing import CliRunner
-
 from bmipy.cmd import main
+from click.testing import CliRunner
 
 
 def test_cli_version():
