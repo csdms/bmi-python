@@ -58,21 +58,6 @@ content-type = "text/x-rst"
 [tool.setuptools.dynamic.version]
 attr = "bmipy._version.__version__"
 
-[tool.setuptools.package-data]
-bmipy = [
-    "py.typed",
-]
-
-[tool.check-manifest]
-ignore = [
-    ".nox",
-    "build",
-]
-
-[tool.isort]
-combine_as_imports = true
-profile = "black"
-
 [tool.mypy]
 check_untyped_defs = true
 disallow_any_generics = true
@@ -100,9 +85,4 @@ addopts = [
     "--strict-markers",
     "--doctest-modules",
     "-vvv",
-]
-doctest_optionflags = [
-    "NORMALIZE_WHITESPACE",
-    "IGNORE_EXCEPTION_DETAIL",
-    "ALLOW_UNICODE",
 ]
