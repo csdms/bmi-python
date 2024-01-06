@@ -2,8 +2,10 @@
 
 Python bindings for the CSDMS [Basic Model Interface](https://bmi.readthedocs.io).
 
+![[Python][pypi-link]][python-badge]
 ![[DOI][doi-link]][doi-badge]
 ![[Build Status][build-link]][build-badge]
+![[PyPI][pypi-link]][pypi-badge]
 ![[Build Status][anaconda-link]][anaconda-badge]
 
 [anaconda-badge]: https://anaconda.org/conda-forge/bmipy/badges/version.svg
@@ -12,6 +14,9 @@ Python bindings for the CSDMS [Basic Model Interface](https://bmi.readthedocs.io
 [build-link]: https://github.com/csdms/bmi-python/actions/workflows/test.yml
 [doi-badge]: https://zenodo.org/badge/179283861.svg
 [doi-link]: https://zenodo.org/badge/latestdoi/179283861
+[pypi-badge]: https://badge.fury.io/py/bmipy.svg
+[pypi-link]: https://pypi.org/project/bmipy/
+[python-badge]: https://img.shields.io/pypi/pyversions/bmipy.svg
 
 ## Install
 
