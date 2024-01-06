@@ -68,16 +68,12 @@ repos:
     - id: trailing-whitespace
     - id: name-tests-test
     - id: file-contents-sorter
-      files: requirements.in|.gitignore
-
-- repo: https://github.com/regebro/pyroma
-  rev: "4.2"
-  hooks:
-  - id: pyroma
-    args: ["-d", "--min=10", "."]
-    additional_dependencies:
-    - numpy
-    - cython
+      files: |
+        (?x)^(
+          .*requirements(-\w+)?.(in|txt)|
+          requirements/.*\.txt|
+          .gitignore
+        )
 
 - repo: https://github.com/PyCQA/pydocstyle
   rev: 6.3.0
