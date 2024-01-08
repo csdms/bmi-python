@@ -63,6 +63,9 @@ where = [
     "src",
 ]
 
+[tool.coverage.run]
+relative_files = true
+
 [tool.mypy]
 check_untyped_defs = true
 disallow_any_generics = true
@@ -91,3 +94,7 @@ addopts = [
     "--doctest-modules",
     "-vvv",
 ]
+
+[tool.zest-releaser]
+tag-format = "v{version}"
+python-file-with-version = "src/bmipy/_version.py"
