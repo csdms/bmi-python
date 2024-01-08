@@ -1,6 +1,6 @@
 import pytest
 
-from bmipy._template import dedent_docstring
+from bmipy._template import dedent_docstring, render_function_signature
 
 
 @pytest.mark.parametrize(
@@ -14,7 +14,9 @@ from bmipy._template import dedent_docstring
 )
 def test_dedent_docstring_aligned(text):
     fixed_text = dedent_docstring(text)
-    assert [l.lstrip() for l in fixed_text.splitlines()] == fixed_text.splitlines()
+    assert [
+        line.lstrip() for line in fixed_text.splitlines()
+    ] == fixed_text.splitlines()
 
 
 @pytest.mark.parametrize(
@@ -36,7 +38,9 @@ def test_dedent_docstring_empty(text):
 )
 def test_dedent_docstring_tabsize(text, tabsize):
     fixed_text = dedent_docstring(text, tabsize)
-    assert [l.lstrip() for l in fixed_text.splitlines()] == fixed_text.splitlines()
+    assert [
+        line.lstrip() for line in fixed_text.splitlines()
+    ] == fixed_text.splitlines()
 
 
 @pytest.mark.parametrize(
@@ -46,3 +50,42 @@ def test_dedent_docstring_tabsize(text, tabsize):
 def test_dedent_docstring_body_is_left_justified(text):
     lines = dedent_docstring(text).splitlines()[1:]
     assert any(line.lstrip() == line for line in lines)
+
+
+@pytest.mark.parametrize(
+    "annotations",
+    (
+        {"bar": "int"},
+        {"bar" * 10: "int", "baz" * 10: "int"},
+        {"bar" * 20: "int", "baz" * 20: "int"},
+    ),
+)
+def test_render_function_wraps(annotations):
+    params = list(annotations)
+    annotations["return"] = "str"
+
+    text = render_function_signature("foo", params, annotations)
+    assert max(len(line) for line in text.splitlines()) <= 88
+
+
+@pytest.mark.parametrize(
+    "annotations",
+    (
+        {},
+        {"bar": "int"},
+        {"bar" * 10: "int", "baz" * 10: "int"},
+        {"bar" * 20: "int", "baz" * 20: "int"},
+    ),
+)
+def test_render_function_is_valid(annotations):
+    params = list(annotations)
+    annotations["return"] = "str"
+
+    text = render_function_signature("foo", params, annotations)
+    generated_code = f"{text}\n    return 'FOOBAR!'"
+
+    globs = {}
+    exec(generated_code, globs)
+
+    assert "foo" in globs
+    assert globs["foo"](*range(len(params))) == "FOOBAR!"
