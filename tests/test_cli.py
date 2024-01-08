@@ -1,3 +1,4 @@
+import importlib
 import sys
 
 import pytest
@@ -24,9 +25,6 @@ def test_cli_help():
     sys.platform == "win32", reason="See https://github.com/csdms/bmi-python/issues/10"
 )
 def test_cli_default(tmpdir):
-    import importlib
-    import sys
-
     runner = CliRunner()
     with tmpdir.as_cwd():
         result = runner.invoke(main, ["MyBmi"])
@@ -36,6 +34,17 @@ def test_cli_default(tmpdir):
         sys.path.append(".")
         mod = importlib.import_module("mybmi")
         assert "MyBmi" in mod.__dict__
+
+
+@pytest.mark.skipif(
+    sys.platform == "win32", reason="See https://github.com/csdms/bmi-python/issues/10"
+)
+def test_cli_wraps_lines(tmpdir):
+    runner = CliRunner()
+    with tmpdir.as_cwd():
+        result = runner.invoke(main, ["MyBmi"])
+        assert result.exit_code == 0
+        assert max(len(line) for line in result.output.splitlines()) <= 88
 
 
 def test_cli_with_hints(tmpdir):
