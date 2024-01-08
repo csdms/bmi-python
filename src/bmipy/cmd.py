@@ -1,4 +1,6 @@
 """Command line interface that create template BMI implementations."""
+from __future__ import annotations
+
 import click
 
 from bmipy._template import Template
