@@ -19,7 +19,7 @@ class Template:
         prefix = f"""\
 from __future__ import annotations
 
-import numpy
+import numpy as np
 
 from bmipy.bmi import Bmi
 
@@ -43,6 +43,7 @@ class {self._name}(Bmi):
                 name,
                 tuple(signature.parameters),
                 annotations,
+                width=84,
             ),
             docstring,
             f"    raise NotImplementedError({name!r})".replace("'", '"'),
@@ -83,6 +84,7 @@ def render_function_signature(
     params: tuple[str, ...] | None = None,
     annotations: dict[str, str] | None = None,
     tabsize: int = 4,
+    width: int = 88,
 ) -> str:
     """Render a function signature, wrapping if the generated signature is too long.
 
@@ -117,13 +119,13 @@ def render_function_signature(
         body.append(param)
 
     signature = prefix + ", ".join(body) + suffix
-    if len(signature) <= 88:
+    if len(signature) <= width:
         return signature
 
     indent = " " * tabsize
 
     lines = [prefix, indent + ", ".join(body), suffix]
-    if max(len(line) for line in lines) <= 88:
+    if max(len(line) for line in lines) <= width:
         return os.linesep.join(lines)
 
     return os.linesep.join([prefix] + [f"{indent}{line}," for line in body] + [suffix])
