@@ -52,7 +52,7 @@ class {self._name}(Bmi):
         return textwrap.indent(os.linesep.join(parts), "    ")
 
 
-def dedent_docstring(text: str | None, tabsize=4) -> str:
+def dedent_docstring(text: str | None, tabsize: int = 4) -> str:
     """Dedent a docstring, ignoring indentation of the first line.
 
     Parameters

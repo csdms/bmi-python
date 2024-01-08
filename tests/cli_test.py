@@ -4,7 +4,7 @@ import importlib
 import sys
 
 import pytest
-from bmipy.cmd import main
+from bmipy._cmd import main
 
 
 def test_cli_version(capsys):

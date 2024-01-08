@@ -37,7 +37,7 @@ dynamic = [
 text = "MIT"
 
 [project.scripts]
-bmipy-render = "bmipy.cmd:main"
+bmipy-render = "bmipy._cmd:main"
 
 [project.urls]
 documentation = "https://bmi.readthedocs.io"
