@@ -1,6 +1,8 @@
 """Command line interface that create template BMI implementations."""
 from __future__ import annotations
 
+import keyword
+
 import click
 
 from bmipy._template import Template
@@ -12,7 +14,7 @@ from bmipy._template import Template
 @click.pass_context
 def main(ctx: click.Context, name: str):
     """Render a template BMI implementation in Python for class NAME."""
-    if name.isidentifier():
+    if name.isidentifier() and not keyword.iskeyword(name):
         print(Template(name).render())
     else:
         click.secho(
