@@ -27,9 +27,7 @@ classifiers = [
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "black",
     "click",
-    "jinja2",
     "numpy",
 ]
 dynamic = ["version"]
