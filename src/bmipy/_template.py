@@ -98,6 +98,8 @@ def render_function_signature(
         Annotations for each parameters as well as the return type.
     tabsize : int, optional
         The number of spacses represented by a tab.
+    width : int, optional
+        The maximum width of a line.
 
     Returns
     -------
