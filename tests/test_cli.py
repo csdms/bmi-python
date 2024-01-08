@@ -41,33 +41,9 @@ def test_cli_default(tmpdir):
 def test_cli_with_hints(tmpdir):
     runner = CliRunner()
     with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmiWithHints", "--hints"])
+        result = runner.invoke(main, ["MyBmiWithHints"])
         assert result.exit_code == 0
         assert "->" in result.output
-
-
-def test_cli_without_hints(tmpdir):
-    runner = CliRunner()
-    with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmiWithoutHints", "--no-hints"])
-        assert result.exit_code == 0
-        assert "->" not in result.output
-
-
-def test_cli_with_black(tmpdir):
-    runner = CliRunner()
-    with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmiWithHints", "--black"])
-        assert result.exit_code == 0
-        assert max([len(line) for line in result.output.splitlines()]) <= 88
-
-
-def test_cli_without_black(tmpdir):
-    runner = CliRunner()
-    with tmpdir.as_cwd():
-        result = runner.invoke(main, ["MyBmiWithoutHints", "--no-black"])
-        assert result.exit_code == 0
-        assert max([len(line) for line in result.output.splitlines()]) > 88
 
 
 @pytest.mark.parametrize("bad_name", ["True", "0Bmi"])
