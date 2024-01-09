@@ -19,7 +19,10 @@ class Template:
         prefix = f"""\
 from __future__ import annotations
 
+from typing import Any
+
 import numpy as np
+from numpy.typing import NDArray
 
 from bmipy.bmi import Bmi
 
@@ -52,7 +55,7 @@ class {self._name}(Bmi):
         return textwrap.indent(os.linesep.join(parts), "    ")
 
 
-def dedent_docstring(text: str | None, tabsize=4) -> str:
+def dedent_docstring(text: str | None, tabsize: int = 4) -> str:
     """Dedent a docstring, ignoring indentation of the first line.
 
     Parameters

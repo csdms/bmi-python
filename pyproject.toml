@@ -1,23 +1,23 @@
-[build-system]
-requires = ["setuptools >=61"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "bmipy"
+requires-python = ">=3.10"
 description = "Basic Model Interface for Python"
-readme = "README.rst"
-authors = [
-    {name = "Eric Hutton", email = "huttone@colorado.edu"},
+keywords = [
+    "BMI",
+    "Basic Model Interface",
 ]
-keywords = ["BMI", "Basic Model Interface"]
-license = {text = "MIT"}
+authors = [
+    { name = "Eric Hutton", email = "huttone@colorado.edu" },
+]
+maintainers = [
+    { name = "Eric Hutton", email = "huttone@colorado.edu" },
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -25,49 +25,75 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Hydrology",
     "Topic :: Scientific/Engineering :: Physics",
 ]
-requires-python = ">=3.9"
 dependencies = [
-    "click",
     "numpy",
 ]
-dynamic = ["version"]
+dynamic = [
+    "version",
+    "readme",
+]
 
-  [project.scripts]
-  bmipy-render = "bmipy.cmd:main"
+[project.license]
+text = "MIT"
 
-  [project.urls]
-  Documentation = "https://bmi.readthedocs.io"
-  Source = "https://github.com/csdms/bmi-python"
+[project.scripts]
+bmipy-render = "bmipy._cmd:main"
 
-[tool]
+[project.urls]
+documentation = "https://bmi.readthedocs.io"
+homepage = "https://bmi.readthedocs.io"
+repository = "https://github.com/csdms/bmi-python"
 
-  [tool.setuptools.package-data]
-  bmipy = ["py.typed"]
+[build-system]
+requires = [
+    "setuptools >=61",
+]
+build-backend = "setuptools.build_meta"
 
-  [tool.setuptools.dynamic]
-  version = {attr = "bmipy._version.__version__"}
+[tool.setuptools.dynamic.readme]
+file = "README.md"
+content-type = "text/markdown"
 
-  [tool.pytest.ini_options]
-  minversion = "6.0"
-  testpaths = ["src", "tests"]
-  norecursedirs = [".*", "*.egg*", "build", "dist"]
-  addopts = """
-    --ignore setup.py
-    --tb native
-    --durations 16
-    --strict-markers
-    --doctest-modules
-    -vvv
-  """
-  doctest_optionflags = [
-    "NORMALIZE_WHITESPACE",
-    "IGNORE_EXCEPTION_DETAIL",
-    "ALLOW_UNICODE"
-  ]
+[tool.setuptools.dynamic.version]
+attr = "bmipy._version.__version__"
 
-  [tool.isort]
-  combine_as_imports = true
-  profile = "black"
+[tool.setuptools.packages.find]
+where = [
+    "src",
+]
 
-  [tool.check-manifest]
-  ignore = [".nox", "build"]
+[tool.coverage.run]
+relative_files = true
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+    "src",
+    "tests",
+]
+norecursedirs = [
+    ".*",
+    "*.egg*",
+    "build",
+    "dist",
+]
+addopts = [
+    "--ignore=setup.py",
+    "--tb=native",
+    "--durations=16",
+    "--strict-markers",
+    "--doctest-modules",
+    "-vvv",
+]
+
+[tool.zest-releaser]
+tag-format = "v{version}"
+python-file-with-version = "src/bmipy/_version.py"

@@ -5,9 +5,12 @@ Definition Language (SIDL) file `bmi.sidl <https://github.com/csdms/bmi>`_.
 """
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import ABC
+from abc import abstractmethod
+from typing import Any
 
 import numpy as np
+from numpy.typing import NDArray
 
 
 class Bmi(ABC):
@@ -249,8 +252,8 @@ class Bmi(ABC):
 
         *face*
             A plane or surface enclosed by a set of edges. In a 2D
-            horizontal application one may consider the word “polygon”,
-            but in the hierarchy of elements the word “face” is most common.
+            horizontal application one may consider the word "polygon",
+            but in the hierarchy of elements the word "face" is most common.
 
         Parameters
         ----------
@@ -335,7 +338,7 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_value(self, name: str, dest: np.ndarray) -> np.ndarray:
+    def get_value(self, name: str, dest: NDArray[Any]) -> NDArray[Any]:
         """Get a copy of values of the given variable.
 
         This is a getter for the model, used to access the model's
@@ -357,7 +360,7 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_value_ptr(self, name: str) -> np.ndarray:
+    def get_value_ptr(self, name: str) -> NDArray[Any]:
         """Get a reference to values of the given variable.
 
         This is a getter for the model, used to access the model's
@@ -378,8 +381,8 @@ class Bmi(ABC):
 
     @abstractmethod
     def get_value_at_indices(
-        self, name: str, dest: np.ndarray, inds: np.ndarray
-    ) -> np.ndarray:
+        self, name: str, dest: NDArray[Any], inds: NDArray[np.int_]
+    ) -> NDArray[Any]:
         """Get values at particular indices.
 
         Parameters
@@ -399,7 +402,7 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def set_value(self, name: str, src: np.ndarray) -> None:
+    def set_value(self, name: str, src: NDArray[Any]) -> None:
         """Specify a new value for a model variable.
 
         This is the setter for the model, used to change the model's
@@ -418,7 +421,7 @@ class Bmi(ABC):
 
     @abstractmethod
     def set_value_at_indices(
-        self, name: str, inds: np.ndarray, src: np.ndarray
+        self, name: str, inds: NDArray[np.int_], src: NDArray[Any]
     ) -> None:
         """Specify a new value for a model variable at particular indices.
 
@@ -484,7 +487,7 @@ class Bmi(ABC):
 
     # Uniform rectilinear
     @abstractmethod
-    def get_grid_shape(self, grid: int, shape: np.ndarray) -> np.ndarray:
+    def get_grid_shape(self, grid: int, shape: NDArray[np.int_]) -> NDArray[np.int_]:
         """Get dimensions of the computational grid.
 
         Parameters
@@ -502,7 +505,9 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_spacing(self, grid: int, spacing: np.ndarray) -> np.ndarray:
+    def get_grid_spacing(
+        self, grid: int, spacing: NDArray[np.float64]
+    ) -> NDArray[np.float64]:
         """Get distance between nodes of the computational grid.
 
         Parameters
@@ -520,7 +525,9 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_origin(self, grid: int, origin: np.ndarray) -> np.ndarray:
+    def get_grid_origin(
+        self, grid: int, origin: NDArray[np.float64]
+    ) -> NDArray[np.float64]:
         """Get coordinates for the lower-left corner of the computational grid.
 
         Parameters
@@ -541,7 +548,7 @@ class Bmi(ABC):
 
     # Non-uniform rectilinear, curvilinear
     @abstractmethod
-    def get_grid_x(self, grid: int, x: np.ndarray) -> np.ndarray:
+    def get_grid_x(self, grid: int, x: NDArray[np.float64]) -> NDArray[np.float64]:
         """Get coordinates of grid nodes in the x direction.
 
         Parameters
@@ -559,7 +566,7 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_y(self, grid: int, y: np.ndarray) -> np.ndarray:
+    def get_grid_y(self, grid: int, y: NDArray[np.float64]) -> NDArray[np.float64]:
         """Get coordinates of grid nodes in the y direction.
 
         Parameters
@@ -577,7 +584,7 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_z(self, grid: int, z: np.ndarray) -> np.ndarray:
+    def get_grid_z(self, grid: int, z: NDArray[np.float64]) -> NDArray[np.float64]:
         """Get coordinates of grid nodes in the z direction.
 
         Parameters
@@ -643,7 +650,9 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_edge_nodes(self, grid: int, edge_nodes: np.ndarray) -> np.ndarray:
+    def get_grid_edge_nodes(
+        self, grid: int, edge_nodes: NDArray[np.int_]
+    ) -> NDArray[np.int_]:
         """Get the edge-node connectivity.
 
         Parameters
@@ -663,7 +672,9 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_face_edges(self, grid: int, face_edges: np.ndarray) -> np.ndarray:
+    def get_grid_face_edges(
+        self, grid: int, face_edges: NDArray[np.int_]
+    ) -> NDArray[np.int_]:
         """Get the face-edge connectivity.
 
         Parameters
@@ -681,7 +692,9 @@ class Bmi(ABC):
         ...
 
     @abstractmethod
-    def get_grid_face_nodes(self, grid: int, face_nodes: np.ndarray) -> np.ndarray:
+    def get_grid_face_nodes(
+        self, grid: int, face_nodes: NDArray[np.int_]
+    ) -> NDArray[np.int_]:
         """Get the face-node connectivity.
 
         Parameters
@@ -702,8 +715,8 @@ class Bmi(ABC):
 
     @abstractmethod
     def get_grid_nodes_per_face(
-        self, grid: int, nodes_per_face: np.ndarray
-    ) -> np.ndarray:
+        self, grid: int, nodes_per_face: NDArray[np.int_]
+    ) -> NDArray[np.int_]:
         """Get the number of nodes for each face.
 
         Parameters
