@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-import importlib
-import sys
-
 import pytest
 from bmipy._cmd import main
 
@@ -27,31 +24,24 @@ def test_cli_help(capsys):
     assert "help" in output
 
 
-def test_cli_default(capsys, tmpdir):
-    with tmpdir.as_cwd():
-        assert main(["MyBmi"]) == 0
-        output = capsys.readouterr().out
-        with open("mybmi.py", "w") as fp:
-            fp.write(output)
-        sys.path.append(".")
-        mod = importlib.import_module("mybmi")
-        assert "MyBmi" in mod.__dict__
+def test_cli_default(capsys):
+    assert main(["MyBmi"]) == 0
+    exec(capsys.readouterr().out)
+    assert "MyBmi" in globals()
 
 
-def test_cli_wraps_lines(capsys, tmpdir):
-    with tmpdir.as_cwd():
-        assert main(["MyBmi"]) == 0
-        output = capsys.readouterr().out
-        assert max(len(line) for line in output.splitlines()) <= 88
+def test_cli_wraps_lines(capsys):
+    assert main(["MyBmi"]) == 0
+    output = capsys.readouterr().out
+    assert max(len(line) for line in output.splitlines()) <= 88
 
 
-def test_cli_with_hints(capsys, tmpdir):
-    with tmpdir.as_cwd():
-        assert main(["MyBmiWithHints"]) == 0
-        output = capsys.readouterr().out
-        assert "->" in output
+def test_cli_with_hints(capsys):
+    assert main(["MyBmiWithHints"]) == 0
+    output = capsys.readouterr().out
+    assert "->" in output
 
 
 @pytest.mark.parametrize("bad_name", ["True", "0Bmi"])
-def test_cli_with_bad_class_name(capsys, tmpdir, bad_name):
+def test_cli_with_bad_class_name(capsys, bad_name):
     assert main([bad_name]) != 0
