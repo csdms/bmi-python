@@ -25,9 +25,10 @@ def test_cli_help(capsys):
 
 
 def test_cli_default(capsys):
-    assert main(["MyBmi"]) == 0
-    exec(capsys.readouterr().out)
-    assert "MyBmi" in globals()
+    assert main(["MyUniqueBmi"]) == 0
+    globs = {}
+    exec(capsys.readouterr().out, globs)
+    assert "MyUniqueBmi" in globs
 
 
 def test_cli_wraps_lines(capsys):
