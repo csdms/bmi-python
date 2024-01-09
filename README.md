@@ -36,9 +36,7 @@ conda install bmipy -c conda-forge
 To build and install *bmipy* from source,
 
 ```bash
-git clone https://github.com/csdms/bmi-python
-cd bmi-python
-pip install .
+pip install git+https://github.com/csdms/bmi-python.git
 ```
 
 ## Usage
