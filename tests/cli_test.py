@@ -46,3 +46,17 @@ def test_cli_with_hints(capsys):
 @pytest.mark.parametrize("bad_name", ["True", "0Bmi"])
 def test_cli_with_bad_class_name(capsys, bad_name):
     assert main([bad_name]) != 0
+
+
+def test_cli_docstrings(capsys):
+    assert main(["MyBmiWithDocstrings", "--docstring"]) == 0
+    output_default = capsys.readouterr().out
+
+    assert main(["MyBmiWithDocstrings", "--docstring"]) == 0
+    output_with_docstrings = capsys.readouterr().out
+    assert output_with_docstrings == output_default
+
+    assert main(["MyBmiWithoutDocstrings", "--no-docstring"]) == 0
+    output_without_docstrings = capsys.readouterr().out
+
+    assert len(output_with_docstrings) > len(output_without_docstrings)
