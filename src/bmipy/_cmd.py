@@ -13,7 +13,7 @@ def main(argv: tuple[str, ...] | None = None) -> int:
     """Render a template BMI implementation in Python for class NAME."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--version", action="version", version=f"bmipy {__version__}")
-    parser.add_argument("name")
+    parser.add_argument("name", metavar="NAME", help="Name of the generated BMI class")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
