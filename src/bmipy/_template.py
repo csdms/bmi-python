@@ -10,7 +10,9 @@ from collections import OrderedDict
 from bmipy.bmi import Bmi
 
 GROUPS = (
-    ("control", "(initialize|update|update_until|finalize)"),
+    ("initialize", "initialize"),
+    ("update", "(update|update_until)"),
+    ("finalize", "finalize"),
     ("info", r"(get_component_name|\w+_var_names|\w+_item_count)"),
     ("var", r"get_var_\w+"),
     ("time", r"get_\w*time\w*"),
