@@ -21,7 +21,7 @@ def main(argv: tuple[str, ...] | None = None) -> int:
         action="store_true",
         dest="docstring",
         default=True,
-        help="Add docstrings to the generated methods",
+        help="Add docstrings to the generated methods (default: include docstrings)",
     )
     group.add_argument("--no-docstring", action="store_false", dest="docstring")
 
