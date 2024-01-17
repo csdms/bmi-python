@@ -2,9 +2,23 @@ from __future__ import annotations
 
 import inspect
 import os
+import re
 import textwrap
+from collections import defaultdict
+from collections import OrderedDict
 
 from bmipy.bmi import Bmi
+
+GROUPS = (
+    ("initialize", "initialize"),
+    ("update", "(update|update_until)"),
+    ("finalize", "finalize"),
+    ("info", r"(get_component_name|\w+_var_names|\w+_item_count)"),
+    ("var", r"get_var_\w+"),
+    ("time", r"get_\w*time\w*"),
+    ("value", r"(get|set)_value\w*"),
+    ("grid", r"get_grid_\w+"),
+)
 
 
 class Template:
@@ -12,9 +26,16 @@ class Template:
 
     def __init__(self, name: str):
         self._name = name
-        self._funcs = dict(inspect.getmembers(Bmi, inspect.isfunction))
 
-    def render(self) -> str:
+        funcs = dict(inspect.getmembers(Bmi, inspect.isfunction))
+
+        names = sort_methods(frozenset(funcs))
+
+        self._funcs = OrderedDict(
+            (name, funcs.pop(name)) for name in names
+        ) | OrderedDict(sorted(funcs.items()))
+
+    def render(self, with_docstring: bool = True) -> str:
         """Render a module that defines a class implementing a Bmi."""
         prefix = f"""\
 from __future__ import annotations
@@ -30,13 +51,15 @@ from bmipy.bmi import Bmi
 class {self._name}(Bmi):
 """
         return prefix + (os.linesep * 2).join(
-            [self._render_func(name) for name in sorted(self._funcs)]
+            [
+                self._render_func(name, with_docstring=with_docstring)
+                for name in self._funcs
+            ]
         )
 
-    def _render_func(self, name: str) -> str:
+    def _render_func(self, name: str, with_docstring: bool = True) -> str:
         annotations = inspect.get_annotations(self._funcs[name])
         signature = inspect.signature(self._funcs[name], eval_str=False)
-
         docstring = textwrap.indent(
             '"""' + dedent_docstring(self._funcs[name].__doc__) + '"""', "    "
         )
@@ -47,12 +70,30 @@ class {self._name}(Bmi):
                 tuple(signature.parameters),
                 annotations,
                 width=84,
-            ),
-            docstring,
-            f"    raise NotImplementedError({name!r})".replace("'", '"'),
+            )
         ]
+        parts.append(docstring) if with_docstring else None
+        parts.append(f"    raise NotImplementedError({name!r})".replace("'", '"'))
 
         return textwrap.indent(os.linesep.join(parts), "    ")
+
+
+def sort_methods(funcs: frozenset[str]) -> list[str]:
+    """Sort methods by group type."""
+    unmatched = set(funcs)
+    matched = defaultdict(set)
+
+    for group, regex in GROUPS:
+        pattern = re.compile(regex)
+
+        matched[group] = {name for name in unmatched if pattern.match(name)}
+        unmatched -= matched[group]
+
+    ordered = []
+    for group, _ in GROUPS:
+        ordered.extend(sorted(matched[group]))
+
+    return ordered + sorted(unmatched)
 
 
 def dedent_docstring(text: str | None, tabsize: int = 4) -> str:
