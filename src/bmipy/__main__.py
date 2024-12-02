@@ -1,4 +1,5 @@
 """The bmipy-render command."""
+
 from __future__ import annotations
 
 from bmipy._cmd import main

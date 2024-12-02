@@ -65,6 +65,29 @@ where = [
 [tool.coverage.run]
 relative_files = true
 
+[tool.ruff.lint]
+select = [
+    "B",       # flake8-bugbear
+    "C4",      # flake8-comprehensions
+    "C90",     # mccabe
+    "D",       # pydocstyle
+    "E", "W",  # pycodestyle
+    "F",       # Pyflakes
+    "FA",      # flake8-future-annotations
+    "I",       # isort
+    # "SIM",   # flake8-simplify
+    "UP",      # pyupgrade
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**.py" = ["D"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 18
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
 [tool.mypy]
 check_untyped_defs = true
 disallow_any_generics = true

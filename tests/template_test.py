@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from bmipy._template import dedent_docstring
-from bmipy._template import render_function_signature
+
+from bmipy._template import dedent_docstring, render_function_signature
 
 
 @pytest.mark.parametrize(
