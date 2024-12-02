@@ -4,8 +4,7 @@ import inspect
 import os
 import re
 import textwrap
-from collections import defaultdict
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 from bmipy.bmi import Bmi
 

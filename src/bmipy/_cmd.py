@@ -1,4 +1,5 @@
 """Command line interface that create template BMI implementations."""
+
 from __future__ import annotations
 
 import argparse
