@@ -487,7 +487,6 @@ class Bmi(Protocol):
         ...
 
     # Uniform rectilinear
-    @abstractmethod
     def get_grid_shape(self, grid: int, shape: NDArray[np.int_]) -> NDArray[np.int_]:
         """Get dimensions of the computational grid.
 
@@ -505,7 +504,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_spacing(
         self, grid: int, spacing: NDArray[np.float64]
     ) -> NDArray[np.float64]:
@@ -525,7 +523,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_origin(
         self, grid: int, origin: NDArray[np.float64]
     ) -> NDArray[np.float64]:
@@ -548,7 +545,6 @@ class Bmi(Protocol):
         ...
 
     # Non-uniform rectilinear, curvilinear
-    @abstractmethod
     def get_grid_x(self, grid: int, x: NDArray[np.float64]) -> NDArray[np.float64]:
         """Get coordinates of grid nodes in the x direction.
 
@@ -566,7 +562,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_y(self, grid: int, y: NDArray[np.float64]) -> NDArray[np.float64]:
         """Get coordinates of grid nodes in the y direction.
 
@@ -584,7 +579,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_z(self, grid: int, z: NDArray[np.float64]) -> NDArray[np.float64]:
         """Get coordinates of grid nodes in the z direction.
 
@@ -602,7 +596,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_node_count(self, grid: int) -> int:
         """Get the number of nodes in the grid.
 
@@ -618,7 +611,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_edge_count(self, grid: int) -> int:
         """Get the number of edges in the grid.
 
@@ -634,7 +626,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_face_count(self, grid: int) -> int:
         """Get the number of faces in the grid.
 
@@ -650,7 +641,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_edge_nodes(
         self, grid: int, edge_nodes: NDArray[np.int_]
     ) -> NDArray[np.int_]:
@@ -672,7 +662,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_face_edges(
         self, grid: int, face_edges: NDArray[np.int_]
     ) -> NDArray[np.int_]:
@@ -692,7 +681,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_face_nodes(
         self, grid: int, face_nodes: NDArray[np.int_]
     ) -> NDArray[np.int_]:
@@ -714,7 +702,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def get_grid_nodes_per_face(
         self, grid: int, nodes_per_face: NDArray[np.int_]
     ) -> NDArray[np.int_]:
