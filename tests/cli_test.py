@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pytest
+
 from bmipy._cmd import main
 
 

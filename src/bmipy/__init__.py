@@ -1,4 +1,5 @@
 """The Basic Model Interface (BMI) for Python."""
+
 from __future__ import annotations
 
 from bmipy._version import __version__
