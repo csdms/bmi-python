@@ -402,7 +402,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def set_value(self, name: str, src: NDArray[Any]) -> None:
         """Specify a new value for a model variable.
 
@@ -420,7 +419,6 @@ class Bmi(Protocol):
         """
         ...
 
-    @abstractmethod
     def set_value_at_indices(
         self, name: str, inds: NDArray[np.int_], src: NDArray[Any]
     ) -> None:
