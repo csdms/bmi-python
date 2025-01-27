@@ -56,7 +56,7 @@ def locks(session: nox.Session) -> None:
         session.log(f"updated {ROOT / folder / 'requirements.txt'!s}")
 
 
-@nox.session(name="sync-requirements", python="3.11", venv_backend="conda")
+@nox.session(name="sync-requirements")
 def sync_requirements(session: nox.Session) -> None:
     """Sync requirements.in with pyproject.toml."""
     with open("requirements.in", "w") as fp:
