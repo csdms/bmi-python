@@ -1,25 +1,23 @@
 from __future__ import annotations
 
+import contextlib
+
 import pytest
 
 from bmipy._cmd import main
 
 
 def test_cli_version(capsys):
-    try:
+    with contextlib.suppress(SystemExit):
         assert main(["--version"]) == 0
-    except SystemExit:
-        pass
     output = capsys.readouterr().out
 
     assert "bmipy" in output
 
 
 def test_cli_help(capsys):
-    try:
+    with contextlib.suppress(SystemExit):
         assert main(["--help"]) == 0
-    except SystemExit:
-        pass
     output = capsys.readouterr().out
 
     assert "help" in output
