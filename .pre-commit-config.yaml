@@ -47,11 +47,13 @@ repos:
   - id: pyupgrade
     args: [--py310-plus]
 
-- repo: https://github.com/asottile/reorder-python-imports
-  rev: v3.14.0
+- repo: https://github.com/PyCQA/isort
+  rev: 5.13.2
   hooks:
-  - id: reorder-python-imports
-    args: [--py310-plus, --add-import, "from __future__ import annotations"]
+  - id: isort
+    name: isort (python)
+    args: [--add-import, "from __future__ import annotations"]
+    types: [python]
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v5.0.0
