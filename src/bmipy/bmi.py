@@ -6,15 +6,15 @@ Definition Language (SIDL) file `bmi.sidl <https://github.com/csdms/bmi>`_.
 
 from __future__ import annotations
 
-from abc import ABC
 from abc import abstractmethod
 from typing import Any
+from typing import Protocol
 
 import numpy as np
 from numpy.typing import NDArray
 
 
-class Bmi(ABC):
+class Bmi(Protocol):
     """Base class for implementations of a Python-based BMI."""
 
     @abstractmethod
