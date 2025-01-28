@@ -65,6 +65,11 @@ where = [
 [tool.coverage.run]
 relative_files = true
 
+[tool.isort]
+known_first_party = "bmipy"
+profile = "black"
+force_single_line = true
+
 [tool.mypy]
 check_untyped_defs = true
 disallow_any_generics = true

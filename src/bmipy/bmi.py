@@ -3,6 +3,7 @@
 This language specification is derived from the Scientific Interface
 Definition Language (SIDL) file `bmi.sidl <https://github.com/csdms/bmi>`_.
 """
+
 from __future__ import annotations
 
 from abc import ABC

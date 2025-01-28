@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pytest
+
 from bmipy._template import dedent_docstring
 from bmipy._template import render_function_signature
 
