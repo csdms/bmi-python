@@ -30,15 +30,16 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Physics",
 ]
 dependencies = [
-    "numpy",
 ]
 dynamic = [
     "readme",
 ]
 
 [project.optional-dependencies]
+dev = ["nox"]
 testing = [
   "coverage",
+  "numpy",
   "pytest",
 ]
 

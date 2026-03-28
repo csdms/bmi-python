@@ -29,8 +29,7 @@ def test(session: nox.Session) -> None:
 @nox.session(name="test-cli")
 def test_cli(session: nox.Session) -> None:
     """Test the command line interface."""
-    session.install("-r", "requirements/requires.txt")
-    session.install(".", "--no-deps")
+    session.install(".")
     session.run("bmi-render", "--help")
     session.run("bmi-render", "--version")
 
