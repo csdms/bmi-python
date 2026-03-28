@@ -12,8 +12,7 @@ ROOT = pathlib.Path(__file__).parent
 @nox.session
 def test(session: nox.Session) -> None:
     """Run the tests."""
-    session.install("-r", "requirements/requires.txt", "-r", "requirements/testing.txt")
-    session.install(".", "--no-deps")
+    session.install(".[testing]")
 
     session.run(
         "coverage",

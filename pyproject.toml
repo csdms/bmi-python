@@ -36,6 +36,12 @@ dynamic = [
     "readme",
 ]
 
+[project.optional-dependencies]
+testing = [
+  "coverage",
+  "pytest",
+]
+
 [project.scripts]
 bmipy-render = "bmipy._cmd:main"
 
