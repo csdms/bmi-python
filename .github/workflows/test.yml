@@ -33,7 +33,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install nox
-          nox --non-interactive --error-on-missing-interpreter -s test
+          nox -s test
 
       - name: Coveralls
         if: matrix.os == 'ubuntu-latest'
