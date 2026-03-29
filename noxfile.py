@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 import pathlib
 import shutil
 
@@ -16,14 +15,16 @@ def test(session: nox.Session) -> None:
     session.install("-r", "requirements/requires.txt", "-r", "requirements/testing.txt")
     session.install(".", "--no-deps")
 
-    args = ["--cov", PROJECT, "-vvv"] + session.posargs
-
-    if "CI" in os.environ:
-        args.append(f"--cov-report=xml:{ROOT.absolute()!s}/coverage.xml")
-    session.run("pytest", *args)
-
-    if "CI" not in os.environ:
-        session.run("coverage", "report", "--ignore-errors", "--show-missing")
+    session.run(
+        "coverage",
+        "run",
+        "--source=bmipy,tests",
+        "--branch",
+        "--module",
+        "pytest",
+    )
+    session.run("coverage", "report", "--ignore-errors", "--show-missing")
+    session.run("coverage", "xml", "-o", "coverage.xml")
 
 
 @nox.session(name="test-cli")
