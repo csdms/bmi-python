@@ -20,12 +20,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Use Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -35,9 +35,7 @@ jobs:
           pip install nox
           nox -s test
 
-      - name: Coveralls
-        if: matrix.os == 'ubuntu-latest'
-        uses: AndreMiras/coveralls-python-action@develop
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
         with:
-          parallel: true
-          flag-name: py${{ matrix.python-version }}-${{ matrix.os }}
+          token: ${{ secrets.CODECOV_TOKEN }}
