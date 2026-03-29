@@ -50,6 +50,7 @@ bmipy-render = "bmipy._cmd:main"
 documentation = "https://bmi.readthedocs.io"
 homepage = "https://bmi.readthedocs.io"
 repository = "https://github.com/csdms/bmi-python"
+changelog = "https://github.com/csdms/bmi-python/blob/main/CHANGES.md"
 
 [build-system]
 requires = [
@@ -58,7 +59,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic.readme]
-file = "README.md"
+file = ["README.md", "CHANGES.md"]
 content-type = "text/markdown"
 
 [tool.setuptools.packages.find]
