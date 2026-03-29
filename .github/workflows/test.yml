@@ -35,9 +35,7 @@ jobs:
           pip install nox
           nox -s test
 
-      - name: Coveralls
-        if: matrix.os == 'ubuntu-latest'
-        uses: AndreMiras/coveralls-python-action@develop
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
         with:
-          parallel: true
-          flag-name: py${{ matrix.python-version }}-${{ matrix.os }}
+          token: ${{ secrets.CODECOV_TOKEN }}
