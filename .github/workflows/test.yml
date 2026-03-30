@@ -17,14 +17,32 @@ on:
           - pypi
 
 jobs:
-  test:
-    # We want to run on external PRs, but not on our own internal PRs as they'll be run
-    # by the push to the branch. Without this if check, checks are duplicated since
-    # internal PRs match both the push and pull_request events.
+  build:
     if:
       github.event_name == 'push' || github.event.pull_request.head.repo.full_name !=
       github.repository
 
+    name: Build source distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.15"
+
+      - name: Build sdist
+        run: |
+          pip install nox
+          nox -s build
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: build-dist
+          path: ${{ github.workspace }}/dist/
+          if-no-files-found: error
+
+  test:
+    needs: [build]
     runs-on: ${{ matrix.os }}
 
     defaults:
@@ -43,11 +61,17 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Download source distribution
+        uses: actions/download-artifact@v8
+        with:
+          name: build-dist
+          path: ${{ github.workspace }}/dist
+
       - name: Test
         run: |
           pip install --upgrade pip
           pip install nox
-          nox -s test
+          nox -s test -- dist/*.whl
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v7
