@@ -74,11 +74,8 @@ with open("pyproject.toml", "rb") as fp:
 @nox.session
 def build(session: nox.Session) -> None:
     """Build sdist and wheel dists."""
-    session.install("pip")
     session.install("build")
-    session.run("python", "--version")
-    session.run("pip", "--version")
-    session.run("python", "-m", "build", "--outdir", "./build/wheelhouse")
+    session.run("python", "-m", "build", "--outdir", str(ROOT / "dist"))
 
 
 @nox.session
