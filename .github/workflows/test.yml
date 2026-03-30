@@ -1,9 +1,23 @@
 name: Test
 
-on: [push, pull_request]
+on:
+  pull_request:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+    inputs:
+      publish_to:
+        description: Where to publish
+        type: choice
+        required: true
+        default: none
+        options:
+          - none
+          - testpypi
+          - pypi
 
 jobs:
-  build-and-test:
+  test:
     # We want to run on external PRs, but not on our own internal PRs as they'll be run
     # by the push to the branch. Without this if check, checks are duplicated since
     # internal PRs match both the push and pull_request events.
@@ -39,3 +53,29 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  publish:
+    needs: [test]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && inputs.publish_to != 'none'
+    env:
+      REPOSITORY_URL: ${{ inputs.publish_to == 'testpypi' && 'https://test.pypi.org/legacy/' || 'https://upload.pypi.org/legacy/' }}
+
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: build-*
+          merge-multiple: true
+          path: ${{ github.workspace }}/dist
+
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: ${{ env.REPOSITORY_URL }}
+          packages-dir: dist
+          skip-existing: true
+          print-hash: true
+          verify-metadata: false
