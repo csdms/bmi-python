@@ -1,7 +1,7 @@
 # Release Notes
 
 
-## v2.0.2 (unreleased)
+## v2.0.2 (2026-10-19)
 
 ### Added
 
