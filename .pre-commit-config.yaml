@@ -81,11 +81,18 @@ repos:
   rev: 6.3.0
   hooks:
   - id: pydocstyle
-    files: bmipy/.*\.py$
+    files: ^src/bmipy/.*\.py$
+    exclude: ^src/bmipy/_stub\.py$
     args:
     - --convention=numpy
     - --add-select=D417
-    additional_dependencies: [".[toml]"]
+  - id: pydocstyle
+    name: pydocstyle (BmiStub)
+    files: ^src/bmipy/_stub\.py$
+    args:
+    - --convention=numpy
+    - --add-select=D417
+    - --add-ignore=D102
 
 - repo: https://github.com/pre-commit/mirrors-mypy
   rev: v2.4.0
