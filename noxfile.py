@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import pathlib
 import shutil
 
@@ -11,18 +12,29 @@ ROOT = pathlib.Path(__file__).parent
 
 @nox.session
 def test(session: nox.Session) -> None:
-    """Run the tests."""
-    session.install(".[testing]")
+    """Test the source, or the built distribution."""
+    path = session.posargs[0] if session.posargs else None
+
+    _install_from_path(session, path=path)
+
+    pytest_args: tuple[str, ...] = ()
+    if path is not None:
+        pytest_args = ("--import-mode=importlib", "--pyargs", "bmipy", "tests")
+
+    session.install("coverage", "pytest", "numpy")
+    session.run("coverage", "erase")
 
     session.run(
         "coverage",
         "run",
-        "--source=bmipy,tests",
-        "--branch",
+        "--parallel-mode",
         "--module",
         "pytest",
+        *pytest_args,
     )
-    session.run("coverage", "report", "--ignore-errors", "--show-missing")
+
+    session.run("coverage", "combine")
+    session.run("coverage", "report", "--show-missing")
     session.run("coverage", "xml", "-o", "coverage.xml")
 
 
@@ -74,11 +86,8 @@ with open("pyproject.toml", "rb") as fp:
 @nox.session
 def build(session: nox.Session) -> None:
     """Build sdist and wheel dists."""
-    session.install("pip")
     session.install("build")
-    session.run("python", "--version")
-    session.run("pip", "--version")
-    session.run("python", "-m", "build", "--outdir", "./build/wheelhouse")
+    session.run("python", "-m", "build", "--outdir", str(ROOT / "dist"))
 
 
 @nox.session
@@ -86,32 +95,6 @@ def release(session):
     """Tag, build and publish a new release to PyPI."""
     session.install("zest.releaser[recommended]")
     session.run("fullrelease")
-
-
-@nox.session(name="publish-testpypi")
-def publish_testpypi(session):
-    """Publish wheelhouse/* to TestPyPI."""
-    session.run("twine", "check", "build/wheelhouse/*")
-    session.run(
-        "twine",
-        "upload",
-        "--skip-existing",
-        "--repository-url",
-        "https://test.pypi.org/legacy/",
-        "build/wheelhouse/*.tar.gz",
-    )
-
-
-@nox.session(name="publish-pypi")
-def publish_pypi(session):
-    """Publish wheelhouse/* to PyPI."""
-    session.run("twine", "check", "build/wheelhouse/*")
-    session.run(
-        "twine",
-        "upload",
-        "--skip-existing",
-        "build/wheelhouse/*.tar.gz",
-    )
 
 
 @nox.session(python=False)
@@ -143,3 +126,19 @@ def _clean_rglob(pattern):
             p.rmdir()
         else:
             p.unlink()
+
+
+def _install_from_path(session: nox.Session, path: str | None = None) -> None:
+    if path is None:
+        session.install("-e", ".")
+    elif os.path.isfile(path):
+        session.install(path)
+    elif os.path.isdir(path):
+        session.install(
+            "--force-reinstall",
+            "bmipy",
+            f"--find-links={path}",
+            "--no-index",
+        )
+    else:
+        session.error("path must be a source distribution or folder")

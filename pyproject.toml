@@ -70,6 +70,10 @@ where = [
 
 [tool.coverage.run]
 relative_files = true
+source = ["bmipy", "tests"]
+
+[tool.coverage.paths]
+source = ["src/bmipy", "*/site-packages/bmipy"]
 
 [tool.isort]
 known_first_party = "bmipy"
