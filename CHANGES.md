@@ -9,7 +9,8 @@
 * Add `--docstring` / `--no-docstring` CLI options ([#45](https://github.com/csdms/bmipy/pull/45))
 * Add `width` option for generated code formatting ([#46](https://github.com/csdms/bmipy/pull/46))
 * Add BMI template module for code generation ([#46](https://github.com/csdms/bmipy/pull/46))
-* Add Python 3.13 and 3.14 to the CI test matrix ([#68](https://github.com/csdms/bmipy/pull/68))
+* Add Python 3.13, 3.14, 3.15 to the CI test matrix
+  ([#68](https://github.com/csdms/bmipy/pull/68), [#85](https://github.com/csdms/bmipy/pull/85))
 
 ### Changed
 
