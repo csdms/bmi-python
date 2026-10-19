@@ -1,7 +1,7 @@
 # Release Notes
 
 
-## v2.0.2 (2026-03-29)
+## v2.0.2 (unreleased)
 
 ### Added
 
@@ -11,6 +11,8 @@
 * Add BMI template module for code generation ([#46](https://github.com/csdms/bmipy/pull/46))
 * Add Python 3.13, 3.14, 3.15 to the CI test matrix
   ([#68](https://github.com/csdms/bmipy/pull/68), [#85](https://github.com/csdms/bmipy/pull/85))
+* Add `BmiStub` class for partial BMI implementations, with all methods raising
+  `NotImplementedError` unless overridden ([#84](https://github.com/csdms/bmipy/pull/84))
 
 ### Changed
 
