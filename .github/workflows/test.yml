@@ -54,6 +54,21 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
+  tests-passed:
+    needs: test
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check test results
+        env:
+          RESULT: ${{ needs.test.result }}
+        run: |
+          if [ "$RESULT" != "success" ]; then
+            echo "One or more tests failed: $RESULT"
+            exit 1
+          fi
+          echo "All tests passed."
+
   publish:
     needs: [test]
     runs-on: ubuntu-latest
