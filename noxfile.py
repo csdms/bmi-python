@@ -21,7 +21,7 @@ def test(session: nox.Session) -> None:
     if path is not None:
         pytest_args = ("--import-mode=importlib", "--pyargs", "bmipy", "tests")
 
-    session.install("coverage", "pytest", "numpy")
+    session.install("coverage", "pytest")
     session.run("coverage", "erase")
 
     session.run(
