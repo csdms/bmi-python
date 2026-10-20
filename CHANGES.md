@@ -5,6 +5,8 @@
 
 ### Added
 
+* Add `bmipy.bmi2_0` with `Bmi` and `BMI_VERSION` for explicit BMI 2.0 imports,
+  while preserving existing package-level and `bmipy.bmi` imports.
 * Add a changelog ([#72](https://github.com/csdms/bmipy/pull/72))
 * Add `--docstring` / `--no-docstring` CLI options ([#45](https://github.com/csdms/bmipy/pull/45))
 * Add `width` option for generated code formatting ([#46](https://github.com/csdms/bmipy/pull/46))

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from typing import Any
 
-from bmipy.bmi import Bmi
+from bmipy.bmi2_0 import Bmi
 
 if TYPE_CHECKING:
     import numpy as np
