@@ -40,7 +40,6 @@ dynamic = [
 dev = ["nox"]
 testing = [
   "coverage",
-  "numpy",
   "pytest",
 ]
 
