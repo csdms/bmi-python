@@ -118,7 +118,7 @@ jobs:
           path: ${{ github.workspace }}/dist
 
       - name: Publish
-        uses: pypa/gh-action-pypi-publish@v1.14.2
+        uses: pypa/gh-action-pypi-publish@v1.14.3
         with:
           repository-url: ${{ env.REPOSITORY_URL }}
           packages-dir: dist
