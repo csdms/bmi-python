@@ -23,7 +23,7 @@ repos:
     additional_dependencies: [".[jupyter]"]
 
 - repo: https://github.com/pycqa/flake8
-  rev: 7.4.1
+  rev: 7.5.0
   hooks:
   - id: flake8
     additional_dependencies:
@@ -48,7 +48,7 @@ repos:
     args: [--py310-plus]
 
 - repo: https://github.com/PyCQA/isort
-  rev: 10.0.0b1
+  rev: 10.0.0b2
   hooks:
   - id: isort
     name: isort (python)
@@ -95,7 +95,7 @@ repos:
     - --add-ignore=D102
 
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v2.4.0
+  rev: v2.4.1
   hooks:
   - id: mypy
     language_version: python3.12
