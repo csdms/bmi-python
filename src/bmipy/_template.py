@@ -7,7 +7,7 @@ import textwrap
 from collections import OrderedDict
 from collections import defaultdict
 
-from bmipy.bmi import Bmi
+from bmipy.bmi2_0 import Bmi
 
 GROUPS = (
     ("initialize", "initialize"),
@@ -47,7 +47,7 @@ if TYPE_CHECKING:
     import numpy as np
     from numpy.typing import NDArray
 
-from bmipy.bmi import Bmi
+from bmipy.bmi2_0 import Bmi
 
 
 class {self._name}(Bmi):
